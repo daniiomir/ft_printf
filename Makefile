@@ -11,29 +11,31 @@
 # **************************************************************************** #
 
 NAME = libftprintf.a
-LIBFT = lib/libft.a
+LIBFT = lib/
 FLAGS = -Wall -Wextra -Werror -c
 HEADERS = ./includes
-SRCS = ft_printf.c
-OBJS = $(SRCS:%.c=%.o)
+SRCS = src/ft_printf.c
+OBJS = ft_printf.o
 
 all: $(NAME)
 
 $(NAME):
 	@make -C $(LIBFT)
-	@cp $(LIBFT) ./$(NAME)
+	@cp lib/libft.a ./$(NAME)
 	@gcc $(FLAGS) -I $(HEADERS) $(SRCS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
 main:  re all
-	@gcc -c main.c
+	@gcc -c src/main.c
 	@gcc main.o -L. -lftprintf -o ft_printf
 
 clean:
+	@make clean -C $(LIBFT)
 	@/bin/rm -f $(OBJS)
 
 fclean: clean
+	@make fclean -C $(LIBFT)
 	@/bin/rm -f $(NAME)
 
 re: fclean all
