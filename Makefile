@@ -12,7 +12,7 @@
 
 NAME = libftprintf.a
 LIBFT = lib/
-FLAGS = -Wall -Wextra -Werror -c
+FLAGS = -Wall -Wextra -Werror
 HEADERS = ./includes
 SRCS = src/ft_printf.c
 OBJS = ft_printf.o
@@ -22,19 +22,26 @@ all: $(NAME)
 $(NAME):
 	@make -C $(LIBFT)
 	@cp lib/libft.a ./$(NAME)
-	@gcc $(FLAGS) -I $(HEADERS) $(SRCS)
+	@gcc $(FLAGS) -c -I $(HEADERS) $(SRCS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
-main:  re all
-	@gcc -c src/main.c
-	@gcc main.o -L. -lftprintf -o ft_printf
+main: re all
+	@gcc $(FLAGS) -I $(HEADERS) -c src/main.c
+	@gcc main.o -L. -lftprintf -o ft_printf_test
+	./ft_printf_test
 
+leak: main
+	valgrind --leak-check=full ./ft_printf_test
+
+main_clean:
+	@/bin/rm -f main.o
+	@/bin/rm -f ft_printf_test
 clean:
 	@make clean -C $(LIBFT)
 	@/bin/rm -f $(OBJS)
 
-fclean: clean
+fclean: clean main_clean
 	@make fclean -C $(LIBFT)
 	@/bin/rm -f $(NAME)
 
