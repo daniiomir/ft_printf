@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/16 17:42:44 by swarner           #+#    #+#             */
-/*   Updated: 2019/05/16 17:42:45 by swarner          ###   ########.fr       */
+/*   Created: 2019/05/22 16:58:08 by swarner           #+#    #+#             */
+/*   Updated: 2019/05/22 16:58:09 by swarner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft_printf.h"
 
-int		main()
+char	*ft_engine(char *format, va_list *args)
 {
-	printf("1\n");
-	ft_printf("2\n");
+	size_t	i;
+	char	*string;
 
-	printf("%s\n", "Hello World");
-	ft_printf("%s\n", "Hello World");
+	string = ft_strnew(0);
+	while (format[i] != '\0')
+	{
+		if (format[i] == '%')
+			
+		i++;
+	}
+	return (string);
 }

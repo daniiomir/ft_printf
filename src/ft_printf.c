@@ -14,5 +14,11 @@
 
 int		ft_printf(const char *format, ...)
 {
+	char	*string;
+	va_list	args;
 
+	va_start(va, format);
+	string = ft_engine((char *)format, args);
+	va_end(va);
+	return (ft_strlen(string));
 }

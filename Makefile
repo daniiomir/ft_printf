@@ -14,7 +14,7 @@ NAME = libftprintf.a
 LIBFT = lib/
 FLAGS = -Wall -Wextra -Werror
 HEADERS = ./includes
-SRCS = src/ft_printf.c
+SRCS = src/ft_printf.c src/engine.c
 OBJS = ft_printf.o
 
 all: $(NAME)
