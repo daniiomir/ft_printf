@@ -12,17 +12,22 @@
 
 #include "ft_printf.h"
 
-char	*ft_engine(char *format, va_list *args)
+char	*ft_engine(char *format) // , va_list *args
 {
 	size_t	i;
 	char	*string;
 
+	i = 0;
 	string = ft_strnew(0);
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
-			
+		{
+			string = ft_strjoin_free(string, ft_strsub(format, 0, i));
+		}
 		i++;
 	}
+	if (ft_strchr(format, '%') == NULL)
+		string = ft_strdup(format);
 	return (string);
 }

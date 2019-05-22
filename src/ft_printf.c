@@ -17,8 +17,10 @@ int		ft_printf(const char *format, ...)
 	char	*string;
 	va_list	args;
 
-	va_start(va, format);
-	string = ft_engine((char *)format, args);
-	va_end(va);
+	va_start(args, format);
+	string = ft_engine((char *)format); // , &args
+	ft_putstr(string);
+	free(string);
+	va_end(args);
 	return (ft_strlen(string));
 }
