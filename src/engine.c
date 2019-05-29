@@ -36,8 +36,10 @@ char			*ft_parse_args(char *format, va_list *args, size_t i)
 		letter[0] = va_arg(*args, int);
 		return (letter);
 	}
-	else if (format[i + 1] == 'i')
+	else if (format[i + 1] == 'i' || format[i + 1] == 'd')
 	    return (ft_itoa(va_arg(*args, int)));
+	else if (format[i + 1] == 'u')
+		return (ft_itoa(va_arg(*args, size_t)));
 	return ("\0");
 }
 

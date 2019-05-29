@@ -29,4 +29,13 @@ int	main(void)
 
 	printf("%i\n", 42);
     ft_printf("%i\n", 42);
+
+    printf("%d\n", 42);
+    ft_printf("%d\n", 42);
+
+    printf("%u\n", 42);
+    ft_printf("%u\n", 42); // выводит знаковый тип (переписать itoa под unsigned)
+
+    printf("%u\n", 42);
+    ft_printf("%u\n", 42);
 }
