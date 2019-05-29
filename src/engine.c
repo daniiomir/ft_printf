@@ -24,44 +24,44 @@ static size_t	ft_next_ending(char *format, size_t i)
 
 char			*ft_parse_args(char *format, va_list *args, size_t i)
 {
-    char    letter;
+	char	*letter;
+
 	if (format[i + 1] == '%')
 		return ("%");
 	if (format[i + 1] == 's')
 		return (va_arg(*args, char *));
 	if (format[i + 1] == 'c')
 	{
-        letter = (char *)va_arg(*args, char);
-        return (letter);
-    }
+		letter = ft_strnew(1);
+		letter[0] = va_arg(*args, int);
+		return (letter);
+	}
 	return ("\0");
 }
 
 char			*ft_engine(char *format, va_list *args)
 {
 	size_t	i;
-	size_t  j;
 	char	*string;
 
 	i = 0;
-	j = 0;
-    if (ft_strchr(format, '%') == NULL)
-        return (ft_strdup(format));
-    string = ft_strnew(0);
+	if (ft_strchr(format, '%') == NULL)
+		return (ft_strdup(format));
+	string = ft_strnew(0);
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%' && format[i + 1] != '%')
 		{
 			//string = ft_strjoin_free(string, ft_strsub(format, 0, i));
 			string = ft_strjoin_free(string, ft_parse_args(format, args, i));
-            i = i + 2;
+			i = i + 2;
 		}
 		else if (format[i] == '%' && format[i + 1] == '%')
 		{
-            string = ft_strjoin_free(string, "%");
-            i = i + 2;
-        }
-        string = ft_strjoin_free(string, ft_strsub(format, i, ft_next_ending(format, i)));
+			string = ft_strjoin_free(string, "%");
+			i = i + 2;
+		}
+		string = ft_strjoin_free(string, ft_strsub(format, i, ft_next_ending(format, i)));
 		i++;
 	}
 	return (string);

@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "ft_printf.h"
 
-int		main()
+int	main(void)
 {
 	printf("1\n");
 	ft_printf("2\n");
