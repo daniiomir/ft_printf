@@ -26,4 +26,7 @@ int	main(void)
 
 	printf("%c\n", 'Y');
 	ft_printf("%c\n", 'Y');
+
+	printf("%i\n", 42);
+    ft_printf("%i\n", 42);
 }
