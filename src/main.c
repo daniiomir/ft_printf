@@ -18,6 +18,12 @@ int		main()
 	printf("1\n");
 	ft_printf("2\n");
 
+	printf("%%\n");
+	ft_printf("%%\n");
+
 	printf("%s\n", "Hello World");
 	ft_printf("%s\n", "Hello World");
+
+	printf("%c\n", 'Y');
+	ft_printf("%c\n", 'Y');
 }

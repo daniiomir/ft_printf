@@ -18,6 +18,8 @@
 # include "../lib/includes/libft.h"
 
 int		ft_printf(const char *format, ...);
-char	*ft_engine(char *format); // , va_list *args
+char	*ft_engine(char *format, va_list *args);
+char	*ft_parse_args(char *format, va_list *args, size_t i);
+
 
 #endif
