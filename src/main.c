@@ -30,12 +30,21 @@ int	main(void)
 	printf("%i\n", 42);
     ft_printf("%i\n", 42);
 
-    printf("%d\n", 42);
-    ft_printf("%d\n", 42);
+    printf("%d\n", -4242);
+    ft_printf("%d\n", -4242);
 
-    printf("%u\n", 42);
-    ft_printf("%u\n", 42); // выводит знаковый тип (переписать itoa под unsigned)
+    printf("%u\n", -42);
+    ft_printf("%u\n", -42);
 
-    printf("%u\n", 42);
-    ft_printf("%u\n", 42);
+    printf("%o\n", 4242);
+    ft_printf("%o\n", 4242);
+
+    //printf("%b\n", 4242);
+    //ft_printf("%b\n", 4242);
+
+    printf("%x\n", 42424242);
+    ft_printf("%x\n", 42424242);
+
+    printf("%X\n", 42424242);
+    ft_printf("%X\n", 42424242);
 }

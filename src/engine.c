@@ -39,7 +39,15 @@ char			*ft_parse_args(char *format, va_list *args, size_t i)
 	else if (format[i + 1] == 'i' || format[i + 1] == 'd')
 	    return (ft_itoa(va_arg(*args, int)));
 	else if (format[i + 1] == 'u')
-		return (ft_itoa(va_arg(*args, size_t)));
+        return (ft_unsigned_itoa(va_arg(*args, unsigned int)));
+    else if (format[i + 1] == 'o')
+        return (ft_itoa_base(va_arg(*args, int), 8));
+    else if (format[i + 1] == 'b')
+        return (ft_itoa_base(va_arg(*args, int), 2));
+    else if (format[i + 1] == 'X')
+        return (ft_itoa_base(va_arg(*args, int), 16));
+    else if (format[i + 1] == 'x')
+        return (ft_strlower(ft_itoa_base(va_arg(*args, int), 16)));
 	return ("\0");
 }
 
