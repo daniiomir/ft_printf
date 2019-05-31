@@ -68,15 +68,15 @@ char			*ft_engine(char *format, va_list *args)
 		if (format[i] == '%' && format[i + 1] != '%')
 		{
 			string = ft_strjoin_free(string, ft_parse_args(format, args, i));
-			i = i + 2;
+			i++;
 		}
 		else if (format[i] == '%' && format[i + 1] == '%')
 		{
 			string = ft_strjoin_free(string, "%");
-			i = i + 2;
+			i++;
 		}
-		string = ft_strjoin_free(string, ft_strsub(format, i, ft_next_ending(format, i)));
-		i++;
+		string = ft_strjoin_free(string, ft_strsub(format, i + 1, ft_next_ending(format, i)));
+        i++;
 	}
 	return (string);
 }

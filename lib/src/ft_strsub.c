@@ -18,7 +18,7 @@ char	*ft_strsub(char const *s, unsigned int start, size_t len)
 	char	*for_malloc;
 
 	i = 0;
-	if (!s || len + 1 <= 0 || start + 1 <= 0 || len + 1 < len)
+	if (!s || len + 1 <= 0 || start + 1 <= 0 || len == start)
 		return (NULL);
 	for_malloc = ft_strnew(len);
 	if (for_malloc == NULL)
