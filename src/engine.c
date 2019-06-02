@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static size_t	ft_next_ending(char *format, size_t i)
+static size_t	ft_next_ending(const char *format, size_t i)
 {
 	size_t	j;
 
@@ -26,7 +26,7 @@ static size_t	ft_next_ending(char *format, size_t i)
 	return (j);
 }
 
-char			*ft_parse_args(char *format, va_list *args, size_t i)
+char			*ft_parse_args(const char *format, va_list *args, size_t i)
 {
 	char	*letter;
 
@@ -59,19 +59,15 @@ char			*ft_parse_args(char *format, va_list *args, size_t i)
 	return ("\0");
 }
 
-char			*ft_engine(char *format, va_list *args)
+char			*ft_engine(const char *format, va_list *args)
 {
 	size_t	i;
 	size_t  j;
-
 	char	*string;
 
 	i = 0;
 	if (ft_strchr(format, '%') == NULL)
-	{
-		string = ft_strdup(format);
-		return (string);
-	}
+		return (ft_strdup(format));
 	string = ft_strnew(0);
 	if (format[0] != '%')
     {

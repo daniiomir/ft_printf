@@ -18,7 +18,7 @@ int		ft_printf(const char *format, ...)
 	va_list	args;
 
 	va_start(args, format);
-	string = ft_engine((char *)format, &args);
+	string = ft_engine(format, &args);
 	ft_putstr(string);
 	free(string);
 	va_end(args);
