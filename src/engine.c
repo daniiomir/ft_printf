@@ -33,7 +33,7 @@ char			*ft_parse_args(const char *format, va_list *args, size_t i)
 	if (format[i + 1] == '%')
 		return ("%");
 	else if (format[i + 1] == 's')
-		return (va_arg(*args, char *));
+		return ((letter = va_arg(*args, char *)) == NULL ? "(null)" : letter);
 	else if (format[i + 1] == 'c')
 	{
 		letter = ft_strnew(1);
@@ -78,7 +78,7 @@ char			*ft_engine(const char *format, va_list *args)
 	{
 		if (format[i] == '%')
 		    string = ft_strjoin_free(string, ft_parse_args(format, args, i++));
-		i == 1 ? j = 1 : (j = ft_next_ending(format, i) - i - 1);
+		ft_strlen(format) == 2 ? j = 0 : (j = ft_next_ending(format, i) - i - 1);
 		string = ft_strjoin_free(string, ft_strsub(format, i + 1, j));
 		i = ft_next_ending(format, i);
 	}
