@@ -107,7 +107,7 @@ t_dlist				*ft_dlist_new(void const *content, size_t content_size);
 void				ft_free_dlist(t_dlist *list);
 void				ft_free_list(t_list *list);
 char				*ft_unsigned_itoa(unsigned int n);
-char				*ft_itoa_base(int value, int base);
+char				*ft_itoa_base(unsigned long long int value, int base);
 int					ft_abs(int nb);
 char				*ft_strlower(char *string);
 char				*ft_strupper(char *string);

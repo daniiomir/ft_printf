@@ -43,15 +43,19 @@ char			*ft_parse_args(char *format, va_list *args, size_t i)
 	else if (format[i + 1] == 'i' || format[i + 1] == 'd')
 	    return (ft_itoa(va_arg(*args, int)));
 	else if (format[i + 1] == 'u')
-        return (ft_unsigned_itoa(va_arg(*args, unsigned int)));
+        return (ft_itoa_base(va_arg(*args, unsigned int), 10));
+    else if (format[i + 1] == 'U')
+        return (ft_itoa_base(va_arg(*args, unsigned int), 10));
     else if (format[i + 1] == 'o')
-        return (ft_itoa_base(va_arg(*args, int), 8));
+        return (ft_itoa_base(va_arg(*args, unsigned int), 8));
     else if (format[i + 1] == 'b')
         return (ft_itoa_base(va_arg(*args, int), 2));
     else if (format[i + 1] == 'X')
-        return (ft_itoa_base(va_arg(*args, int), 16));
+        return (ft_itoa_base(va_arg(*args, unsigned int), 16));
     else if (format[i + 1] == 'x')
-        return (ft_strlower(ft_itoa_base(va_arg(*args, int), 16)));
+        return (ft_strlower(ft_itoa_base(va_arg(*args, unsigned int), 16)));
+    else if (format[i + 1] == 'p')
+        return (ft_strjoin("0x", ft_strlower(ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16))));
 	return ("\0");
 }
 
@@ -74,7 +78,7 @@ char			*ft_engine(char *format, va_list *args)
 	    i = ft_next_ending(format, i);
         string = ft_strjoin_free(string, ft_strsub(format, 0, i));
     }
-	while (format[i])
+	while (format[i] != '\0')
 	{
 		if (format[i] == '%' && format[i + 1] != '%')
 		{
@@ -86,9 +90,9 @@ char			*ft_engine(char *format, va_list *args)
 			string = ft_strjoin_free(string, "%");
 			i++;
 		}
-		j = ft_next_ending(format, i) - i - 1;
+		i == 1 ? j = 1 : (j = ft_next_ending(format, i) - i - 1);
 		string = ft_strjoin_free(string, ft_strsub(format, i + 1, j));
-        i = ft_next_ending(format, i);
+		i = ft_next_ending(format, i);
 	}
 	return (string);
 }

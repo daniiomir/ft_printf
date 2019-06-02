@@ -12,37 +12,31 @@
 
 #include "libft.h"
 
-static int	ft_itoa_helper(int tmp, int base, int size, int flag)
+static int	ft_itoa_helper(unsigned long long int tmp, int base, unsigned long long int size)
 {
 	while (tmp /= base)
 		size++;
-	size = size + flag + 1;
+	size = size + 1;
 	return (size);
 }
 
-char		*ft_itoa_base(int value, int base)
+char		*ft_itoa_base(unsigned long long int value, int base)
 {
-	char	*str;
-	char	*tab;
-	int		size;
-	int		flag;
-	int		tmp;
+	char	                *str;
+	char	                *tab;
+    unsigned long long int	size;
+    unsigned long long int	tmp;
 
-	flag = 0;
 	size = 0;
 	tab = "0123456789ABCDEF";
 	if (base < 2 || base > 16)
 		return (0);
-	if (value < 0 && base == 10)
-		flag = 1;
 	tmp = value;
-	size = ft_itoa_helper(tmp, base, size, flag);
+	size = ft_itoa_helper(tmp, base, size);
 	str = ft_strnew(size);
-	if (flag == 1)
-		str[0] = '-';
-	while (size > flag)
+	while (size)
 	{
-		str[size - 1] = tab[ft_abs(value % base)];
+		str[size - 1] = tab[value % base];
 		size--;
 		value /= base;
 	}
