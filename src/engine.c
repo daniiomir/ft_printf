@@ -80,16 +80,8 @@ char			*ft_engine(char *format, va_list *args)
     }
 	while (format[i] != '\0')
 	{
-		if (format[i] == '%' && format[i + 1] != '%')
-		{
-			string = ft_strjoin_free(string, ft_parse_args(format, args, i));
-			i++;
-		}
-		else if (format[i] == '%' && format[i + 1] == '%')
-		{
-			string = ft_strjoin_free(string, "%");
-			i++;
-		}
+		if (format[i] == '%')
+		    string = ft_strjoin_free(string, ft_parse_args(format, args, i++));
 		i == 1 ? j = 1 : (j = ft_next_ending(format, i) - i - 1);
 		string = ft_strjoin_free(string, ft_strsub(format, i + 1, j));
 		i = ft_next_ending(format, i);
