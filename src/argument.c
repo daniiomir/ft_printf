@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   argument.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/16 17:32:29 by swarner           #+#    #+#             */
-/*   Updated: 2019/05/16 17:32:30 by swarner          ###   ########.fr       */
+/*   Created: 2019/06/11 18:42:50 by swarner           #+#    #+#             */
+/*   Updated: 2019/06/11 18:42:52 by swarner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_printf(const char *format, ...)
+void	handle_flags(t_arginfo *info, va_list *args)
 {
-	char	*string;
-	va_list	args;
-	size_t	len;
 
-	va_start(args, format);
-	string = ft_engine(format, &args);
-	ft_putstr(string);
-	len = ft_strlen(string);
-	free(string);
-	va_end(args);
-	return (len);
 }
+
+void	handle_zero()
+{
+
+}
+

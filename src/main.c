@@ -15,13 +15,13 @@
 
 int	main(void)
 {
-//    void    *p;
-//
+//    void    *p = NULL;
+
 //	printf("1\n");
 //	ft_printf("2\n");
 //
 //	printf("%%\n");
-//	ft_printf("%%");
+//	ft_printf("%%\n");
 //
 //	printf("%s\n",  "Hello World");
 //	ft_printf("%s\n", "Hello World");
@@ -55,10 +55,24 @@ int	main(void)
 //
 //    printf("%x\n", -42424242);
 //    ft_printf("%x\n", -42424242);
-
-    printf("{%s}\n", 0);
-    ft_printf("{%s}\n", 0);
-
-    printf("%s", "abc");
-    ft_printf("%s", "abc");
+//
+//    // printf("{%s}\n", 0);
+//    // ft_printf("{%s}\n", 0);
+//
+//    printf("%s\n", "abc");
+//    ft_printf("%s\n", "abc");
+//    printf("%o\n", 42);
+//    printf("%#o\n", 42);
+//
+//    printf("%x\n", 42);
+//    printf("%#x\n", 42);
+//
+//    printf("%X\n", 42);
+//    printf("%#X\n", 42);
+//
+//    printf("%u\n", 42);
+//    printf("%#u\n", 42);
+//    ft_printf("aa%%bb");
+	int i = 483743;
+	ft_printf("%08.8lli", i);
 }

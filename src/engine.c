@@ -19,67 +19,48 @@ static size_t	ft_next_ending(const char *format, size_t i)
 	j = i;
 	while (format[j])
 	{
-	    if (format[j] == '%')
-	        break ;
-        j++;
-    }
-	return (j);
-}
-
-char			*ft_parse_args(const char *format, va_list *args, size_t i)
-{
-	char	*letter;
-
-	if (format[i + 1] == '%')
-		return ("%");
-	else if (format[i + 1] == 's')
-		return ((letter = va_arg(*args, char *)) == NULL ? "(null)" : letter);
-	else if (format[i + 1] == 'c')
-	{
-		letter = ft_strnew(1);
-		letter[0] = va_arg(*args, int);
-		return (letter);
+		if (format[j] == '%' && format[j - 1] != '%')
+			break ;
+		j++;
 	}
-	else if (format[i + 1] == 'i' || format[i + 1] == 'd')
-	    return (ft_itoa(va_arg(*args, int)));
-	else if (format[i + 1] == 'u')
-        return (ft_itoa_base(va_arg(*args, unsigned int), 10));
-    else if (format[i + 1] == 'U')
-        return (ft_itoa_base(va_arg(*args, unsigned int), 10));
-    else if (format[i + 1] == 'o')
-        return (ft_itoa_base(va_arg(*args, unsigned int), 8));
-    else if (format[i + 1] == 'b')
-        return (ft_itoa_base(va_arg(*args, int), 2));
-    else if (format[i + 1] == 'X')
-        return (ft_itoa_base(va_arg(*args, unsigned int), 16));
-    else if (format[i + 1] == 'x')
-        return (ft_strlower(ft_itoa_base(va_arg(*args, unsigned int), 16)));
-    else if (format[i + 1] == 'p')
-        return (ft_strjoin("0x", ft_strlower(ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16))));
-	return ("\0");
+	return (j);
 }
 
 char			*ft_engine(const char *format, va_list *args)
 {
-	size_t	i;
-	size_t  j;
-	char	*string;
+	size_t		i;
+	size_t  	j;
+	char		*string;
+	char		*arg;
+	char		*tmp;
+	t_arginfo	*info;
 
 	i = 0;
 	if (ft_strchr(format, '%') == NULL)
 		return (ft_strdup(format));
 	string = ft_strnew(0);
 	if (format[0] != '%')
-    {
-	    i = ft_next_ending(format, i);
-        string = ft_strjoin_free(string, ft_strsub(format, 0, i));
-    }
+	{
+		i = ft_next_ending(format, i);
+		tmp = ft_strsub(format, 0, i);
+		string = ft_strjoin_free(string, tmp);
+		free(tmp);
+	}
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
-		    string = ft_strjoin_free(string, ft_parse_args(format, args, i++));
+		{
+			info = (t_arginfo *)malloc(sizeof(t_arginfo));
+			i = ft_parse(format, info, i);
+			arg = handle_flags(info, args);
+			string = ft_strjoin_free(string, arg);
+			free(arg);
+			free(info);
+		}
 		ft_strlen(format) == 2 ? j = 0 : (j = ft_next_ending(format, i) - i - 1);
-		string = ft_strjoin_free(string, ft_strsub(format, i + 1, j));
+		tmp = ft_strsub(format, i + 1, j);
+		string = ft_strjoin_free(string, tmp);
+		free(tmp);
 		i = ft_next_ending(format, i);
 	}
 	return (string);
