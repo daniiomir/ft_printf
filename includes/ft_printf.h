@@ -20,12 +20,8 @@
 typedef struct		s_arginfo
 {
 	char	type;
+	char	flag;
 	char 	size[2];
-	size_t 	octotorp;
-	size_t 	minus;
-	size_t 	plus;
-	size_t 	space;
-	size_t 	zero;
 	size_t 	width;
 	size_t 	precision;
 }					t_arginfo;

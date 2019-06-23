@@ -73,18 +73,26 @@ int	main(void)
 //    printf("%u\n", 42);
 //    printf("%#u\n", 42);
 //    ft_printf("aa%%bb");
-	ft_printf("%04i\n", 12);
-	printf("%04i\n\n", 12);
 
-	ft_printf("%-4i|\n", 1);
-	printf("%-4i|\n\n", 1);
 
-	ft_printf("%+i\n", 1);
-	printf("%+i\n\n", 1);
+	// ft_printf("%04i\n", 12);
+	// printf("%04i\n\n", 12);
 
-	ft_printf("%#x\n", 1);
-	printf("%#x\n\n", 1);
+	// ft_printf("%-4i|\n", 1);
+	// printf("%-4i|\n\n", 1);
 
-	ft_printf("% 4i\n", 12);
-	printf("% 4i\n", 12);
+	// ft_printf("%+i\n", 1);
+	// printf("%+i\n\n", 1);
+
+	// ft_printf("%#x\n", 1);
+	// printf("%#x\n\n", 1);
+
+	// ft_printf("% 4i\n", 12);
+	// printf("% 4i\n", 12);
+	// printf("%2%\n");
+	// ft_printf("%2%\n");
+
+	printf("%-10x|\n", 42);
+	ft_printf("%-10x|\n", 42);
+
 }

@@ -61,7 +61,7 @@ char			*ft_engine(const char *format, va_list *args)
 	i = 0;
 	if (ft_strchr(format, '%') == NULL)
 		return (ft_strdup(format));
-	string = ft_strnew(0);
+	string = ft_strnew(1);
 	if (format[0] != '%')
 	{
 		i = ft_next_ending(format, i);

@@ -14,15 +14,11 @@
 
 static void	ft_clean_info(t_arginfo *info)
 {
-	info->octotorp = 0;
-	info->space = 0;
-	info->zero = 0;
-	info->minus = 0;
-	info->plus = 0;
 	info->width = 0;
 	info->precision = 0;
 	info->size[0] = '\0';
 	info->size[1] = '\0';
+	info->flag = '\0';
 	info->type = '\0';
 }
 
@@ -55,16 +51,7 @@ size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i)
 {
 	if (ft_search_helper("# 0-+", format[i + 1]))
 	{
-		if (format[i + 1] == '#')
-			info->octotorp = 1;
-		else if (format[i + 1] == ' ')
-			info->space = 1;
-		else if (format[i + 1] == '0')
-			info->zero = 1;
-		else if (format[i + 1] == '-')
-			info->minus = 1;
-		else if (format[i + 1] == '+')
-			info->plus = 1;
+		info->flag = format[i + 1];
 		return (i + 1);
 	}
 	return (i);
@@ -126,6 +113,12 @@ size_t	ft_parse_size(const char *format, t_arginfo *info, size_t i)
 size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i)
 {
 
+	if (ft_search_helper("sciduUobxXpf%", format[i + 1]))
+		info->type = format[i + 1];
+	return (i + 1);
+}
+
+/*
 	if (format[i + 1] == '%')
 		info->type = '%';
 	else if (format[i + 1] == 's')
@@ -150,5 +143,5 @@ size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i)
 		info->type = 'x';
 	else if (format[i + 1] == 'p')
 		info->type = 'p';
-	return (i + 1);
-}
+	
+*/
