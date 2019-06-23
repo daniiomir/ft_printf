@@ -26,6 +26,17 @@ static size_t	ft_next_ending(const char *format, size_t i)
 	return (j);
 }
 
+char		*ft_strjoin_free2(char *s1, char *s2)
+{
+	char	*result;
+
+	if (!s2)
+	    return (s1);
+	result = ft_strjoin(s1, s2);
+	free(s2);
+	return (result);
+}
+
 char		*ft_strjoin_free_all(char *s1, char *s2)
 {
 	char	*result;
@@ -55,8 +66,7 @@ char			*ft_engine(const char *format, va_list *args)
 	{
 		i = ft_next_ending(format, i);
 		tmp = ft_strsub(format, 0, i);
-		string = ft_strjoin_free(string, tmp);
-		free(tmp);
+		string = ft_strjoin_free_all(string, tmp);
 	}
 	while (format[i] != '\0')
 	{
@@ -65,14 +75,12 @@ char			*ft_engine(const char *format, va_list *args)
 			info = (t_arginfo *)malloc(sizeof(t_arginfo));
 			i = ft_parse(format, info, i);
 			arg = handle_flags(info, args);
-			string = ft_strjoin_free(string, arg);
-			free(arg);
+			string = ft_strjoin_free_all(string, arg);
 			free(info);
 		}
 		ft_strlen(format) == 2 ? j = 0 : (j = ft_next_ending(format, i) - i - 1);
 		tmp = ft_strsub(format, i + 1, j);
-		string = ft_strjoin_free(string, tmp);
-		free(tmp);
+		string = ft_strjoin_free_all(string, tmp);
 		i = ft_next_ending(format, i);
 	}
 	return (string);

@@ -30,6 +30,7 @@ typedef struct		s_arginfo
 	size_t 	precision;
 }					t_arginfo;
 
+char	*ft_strjoin_free2(char *s1, char *s2);
 char	*ft_strjoin_free_all(char *s1, char *s2);
 int		ft_search_helper(const char *string, char search);
 

@@ -57,13 +57,9 @@ char		*handle_space(char *string, t_arginfo *info)
 
 char		*handle_plus(char *string)
 {
-	char	*sign;
-
 	if (string[0] != '-')
 	{
-		sign = ft_strnew(1);
-		sign[0] = '+';
-		string = ft_strjoin_free_all(sign, string);
+		string = ft_strjoin_free2("+", string);
 		return (string);
 	}
 	return (string);
@@ -71,21 +67,14 @@ char		*handle_plus(char *string)
 
 char		*handle_octotorp(char *string, t_arginfo *info)
 {
-	char	*prefix;
-
 	if (info->type == 'o')
 	{
-		prefix = ft_strnew(1);
-		prefix[0] = '0';
-		string = ft_strjoin_free_all(prefix, string);
+		string = ft_strjoin_free2("0", string);
 		return (string);
 	}
 	if (info->type == 'x' || info->type == 'X')
 	{
-		prefix = ft_strnew(2);
-		prefix[0] = '0';
-		prefix[1] = 'x';
-		string = ft_strjoin_free_all(prefix, string);
+		string = ft_strjoin_free2("0x", string);
 		return (info->type == 'x' ? string : ft_strupper(string));
 	}
 	return (string);
