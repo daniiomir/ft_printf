@@ -23,34 +23,28 @@ static char	*ft_strset(char *string, size_t len, char c)
 
 char		*handle_zero(char *string, t_arginfo *info)
 {
+	size_t	len;
 	char	*zeroes;
 
-	if (info->zero == 1 && ft_search_helper("iduUoxX", info->type) == 1)
+	len = ft_strlen(string);
+	if (len < info->width)
 	{
-		len = ft_strlen(string)
-		if (len < info->width)
-		{
-			len = info->width - len;
-			zeroes = ft_strnew(len);
-			ft_strset(zeroes, len, '0');
-			string = ft_strjoin_free_all(zeroes, string);
-			return (string);
-		}
+		len = info->width - len;
+		zeroes = ft_strnew(len);
+		ft_strset(zeroes, len, '0');
+		string = ft_strjoin_free_all(zeroes, string);
+		return (string);
 	}
 	return (string);
 }
 
 char		*handle_space(char *string, t_arginfo *info)
 {
-	char	*zeroes;
+	char	*spaces;
 
-	if (info->space == 1)
-	{
-		zeroes = ft_strnew(info->width);
-		ft_strset(zeroes, info->width, ' ');
-		string = ft_strjoin_free_all(zeroes, string);
-		return (string);
-	}
+	spaces = ft_strnew(info->width);
+	ft_strset(spaces, info->width, ' ');
+	string = ft_strjoin_free_all(spaces, string);
 	return (string);
 }
 
@@ -58,15 +52,12 @@ char		*handle_plus(char *string, t_arginfo *info)
 {
 	char	*sign;
 
-	if (info->plus == 1 && ft_search_helper("iduU", info->type) == 1)
+	if (string[0] != '-')
 	{
-		if (string[0] != '-')
-		{
-			sign = ft_strnew(1);
-			sign[0] = '+';
-			string = ft_strjoin_free_all(sign, string);
-			return (string);
-		}
+		sign = ft_strnew(1);
+		sign[0] = '+';
+		string = ft_strjoin_free_all(sign, string);
+		return (string);
 	}
 	return (string);
 }
@@ -75,30 +66,47 @@ char		*handle_octotorp(char *string, t_arginfo *info)
 {
 	char	*prefix;
 
-	if (info->octotorp == 1)
+	if (info->type == 'o')
 	{
-		if (info->type == 'o')
-		{
-			prefix = ft_strnew(1);
-			prefix[0] = '0';
-			string = ft_strjoin_free_all(prefix, string);
-			return (string);
-		}
-		if (info->type == 'x' || info->type == 'X')
-		{
-			prefix = ft_strnew(2);
-			prefix[0] = '0';
-			prefix[1] = 'x';
-			string = ft_strjoin_free_all(prefix, string);
-			return (info->type == 'x' ? string : ft_strupper(string));
-		}
+		prefix = ft_strnew(1);
+		prefix[0] = '0';
+		string = ft_strjoin_free_all(prefix, string);
+		return (string);
+	}
+	if (info->type == 'x' || info->type == 'X')
+	{
+		prefix = ft_strnew(2);
+		prefix[0] = '0';
+		prefix[1] = 'x';
+		string = ft_strjoin_free_all(prefix, string);
+		return (info->type == 'x' ? string : ft_strupper(string));
 	}
 	return (string);
 }
 
 char		*handle_minus(char *string, t_arginfo *info)
 {
+	size_t	len;
+	char	*spaces;
 
+	if (info->minus == 1)
+	{
+		len = ft_strlen(string);
+		if (len < info->width)
+		{
+			len = info->width - len;
+			spaces = ft_strnew(len);
+			ft_strset(spaces, len, ' ');
+			string = ft_strjoin_free_all(string, spaces);
+			return (string);
+		}
+	}
+	return (string);
+}
+
+char		*set_size(t_arginfo *info, va_list *args)
+{
+	if ()
 }
 
 char	*get_arg(t_arginfo *info, va_list *args)
@@ -108,12 +116,12 @@ char	*get_arg(t_arginfo *info, va_list *args)
 	if (info->type == '%')
 		return ("%");
 	else if (info->type == 's')
-		return ((string = va_arg(*args, char *)) == NULL ? "(null)" : letter);
+		return ((string = va_arg(*args, char *)) == NULL ? "(null)" : string);
 	else if (info->type == 'c')
 	{
 		string = ft_strnew(1);
-		letter[0] = va_arg(*args, int);
-		return (letter);
+		string[0] = va_arg(*args, int);
+		return (string);
 	}
 	else if (info->type == 'i' || info->type == 'd')
 		return (ft_itoa(va_arg(*args, int)));
@@ -139,13 +147,15 @@ char	*handle_flags(t_arginfo *info, va_list *args)
 	char	*arg;
 
 	arg = get_arg(info, args);
-	// arg = handle_zero(arg, info);
+	if (info->zero == 1 && ft_search_helper("iduUoxX", info->type) == 1)
+		arg = handle_zero(arg, info);
+	else if (info->space == 1)
+		arg = handle_space(arg, info);
+	else if (info->octotorp == 1)
+		arg = handle_octotorp(arg, info);
+	else if (info->plus == 1 && ft_search_helper("iduU", info->type) == 1)
+		arg = handle_plus(arg, info);
+	else if (info->minus == 1)
+		arg = handle_minus(arg, info);
 	return (arg);
 }
-
-/*
-char	*ft_parse_types(const char *format, va_list *args, size_t i)
-{
-	
-}
-*/
