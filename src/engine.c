@@ -26,6 +26,18 @@ static size_t	ft_next_ending(const char *format, size_t i)
 	return (j);
 }
 
+char		*ft_strjoin_free_all(char *s1, char *s2)
+{
+	char	*result;
+
+	if (!s2)
+	    return (s1);
+	result = ft_strjoin(s1, s2);
+	free(s1);
+	free(s2);
+	return (result);
+}
+
 char			*ft_engine(const char *format, va_list *args)
 {
 	size_t		i;

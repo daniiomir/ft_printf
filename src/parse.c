@@ -12,20 +12,6 @@
 
 #include "ft_printf.h"
 
-static int	ft_search_helper(const char *string, char search)
-{
-	size_t	j;
-
-	j = 0;
-	while (string[j])
-	{
-		if (string[j] == search)
-			return (1);
-		j++;
-	}
-	return (0);
-}
-
 static void	ft_clean_info(t_arginfo *info)
 {
 	info->octotorp = 0;
@@ -38,6 +24,20 @@ static void	ft_clean_info(t_arginfo *info)
 	info->size[0] = '\0';
 	info->size[1] = '\0';
 	info->type = '\0';
+}
+
+int		ft_search_helper(const char *string, char search)
+{
+	size_t	j;
+
+	j = 0;
+	while (string[j])
+	{
+		if (string[j] == search)
+			return (1);
+		j++;
+	}
+	return (0);
 }
 
 size_t	ft_parse(const char *format, t_arginfo *info, size_t i)
@@ -152,38 +152,3 @@ size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i)
 		info->type = 'p';
 	return (i + 1);
 }
-
-/*
-char	*ft_parse_types(const char *format, va_list *args, size_t i)
-{
-	char	*letter;
-
-	if (format[i + 1] == '%')
-		return ("%");
-	else if (format[i + 1] == 's')
-		return ((letter = va_arg(*args, char *)) == NULL ? "(null)" : letter);
-	else if (format[i + 1] == 'c')
-	{
-		letter = ft_strnew(1);
-		letter[0] = va_arg(*args, int);
-		return (letter);
-	}
-	else if (format[i + 1] == 'i' || format[i + 1] == 'd')
-		return (ft_itoa(va_arg(*args, int)));
-	else if (format[i + 1] == 'u')
-		return (ft_itoa_base(va_arg(*args, unsigned int), 10));
-	else if (format[i + 1] == 'U')
-		return (ft_itoa_base(va_arg(*args, unsigned int), 10));
-	else if (format[i + 1] == 'o')
-		return (ft_itoa_base(va_arg(*args, unsigned int), 8));
-	else if (format[i + 1] == 'b')
-		return (ft_itoa_base(va_arg(*args, int), 2));
-	else if (format[i + 1] == 'X')
-		return (ft_itoa_base(va_arg(*args, unsigned int), 16));
-	else if (format[i + 1] == 'x')
-		return (ft_strlower(ft_itoa_base(va_arg(*args, unsigned int), 16)));
-	else if (format[i + 1] == 'p')
-		return (ft_strjoin("0x", ft_strlower(ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16))));
-	return ("\0");
-}
-*/
