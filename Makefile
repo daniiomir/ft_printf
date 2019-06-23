@@ -32,7 +32,7 @@ main: re all
 	./ft_printf_test
 
 leak: main
-	valgrind --leak-check=full ./ft_printf_test
+	valgrind --leak-check=full --show-leak-kinds=all -v ./ft_printf_test
 
 main_clean:
 	@/bin/rm -f main.o

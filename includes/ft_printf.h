@@ -21,13 +21,13 @@ typedef struct		s_arginfo
 {
 	char	type;
 	char 	size[2];
-	int 	octotorp;
-	int 	minus;
-	int 	plus;
-	int 	space;
-	int 	zero;
-	int 	width;
-	int 	precision;
+	size_t 	octotorp;
+	size_t 	minus;
+	size_t 	plus;
+	size_t 	space;
+	size_t 	zero;
+	size_t 	width;
+	size_t 	precision;
 }					t_arginfo;
 
 char	*ft_strjoin_free_all(char *s1, char *s2);
@@ -46,7 +46,7 @@ size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i);
 char	*handle_flags(t_arginfo *info, va_list *args);
 char	*handle_zero(char *string, t_arginfo *info);
 char	*handle_space(char *string, t_arginfo *info);
-char	*handle_plus(char *string, t_arginfo *info);
+char	*handle_plus(char *string);
 char	*handle_octotorp(char *string, t_arginfo *info);
 char	*handle_minus(char *string, t_arginfo *info);
 

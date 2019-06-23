@@ -73,6 +73,18 @@ int	main(void)
 //    printf("%u\n", 42);
 //    printf("%#u\n", 42);
 //    ft_printf("aa%%bb");
-	int i = 483743;
-	ft_printf("%08.8lli", i);
+	// ft_printf("%04i\n", 12);
+	// printf("%04i\n\n", 12);
+
+	// ft_printf("%-4i|\n", 1);
+	// printf("%-4i|\n\n", 1);
+
+	// ft_printf("%+i\n", 1);
+	// printf("%+i\n\n", 1);
+
+	// ft_printf("%#o\n", 1);
+	// printf("%#o\n\n", 1);
+
+	ft_printf("% 4i\n", 12);
+	printf("% 4i\n", 12);
 }

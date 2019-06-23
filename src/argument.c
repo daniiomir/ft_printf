@@ -12,12 +12,12 @@
 
 #include "ft_printf.h"
 
-static char	*ft_strset(char *string, size_t len, char c)
+static void ft_strset(char *string, size_t len, char c)
 {
 	size_t	i;
 
 	i = 0;
-	while (i != len + 1)
+	while (i != len)
 		string[i++] = c;
 }
 
@@ -40,15 +40,22 @@ char		*handle_zero(char *string, t_arginfo *info)
 
 char		*handle_space(char *string, t_arginfo *info)
 {
+	size_t	len;
 	char	*spaces;
 
-	spaces = ft_strnew(info->width);
-	ft_strset(spaces, info->width, ' ');
-	string = ft_strjoin_free_all(spaces, string);
+	len = ft_strlen(string);
+	if (len < info->width)
+	{
+		len = info->width - len;
+		spaces = ft_strnew(len);
+		ft_strset(spaces, len, ' ');
+		string = ft_strjoin_free_all(spaces, string);
+		return (string);
+	}
 	return (string);
 }
 
-char		*handle_plus(char *string, t_arginfo *info)
+char		*handle_plus(char *string)
 {
 	char	*sign;
 
@@ -104,10 +111,10 @@ char		*handle_minus(char *string, t_arginfo *info)
 	return (string);
 }
 
-char		*set_size(t_arginfo *info, va_list *args)
-{
-	if ()
-}
+// char		*set_size(t_arginfo *info, va_list *args)
+// {
+// 	if ()
+// }
 
 char	*get_arg(t_arginfo *info, va_list *args)
 {
@@ -154,7 +161,7 @@ char	*handle_flags(t_arginfo *info, va_list *args)
 	else if (info->octotorp == 1)
 		arg = handle_octotorp(arg, info);
 	else if (info->plus == 1 && ft_search_helper("iduU", info->type) == 1)
-		arg = handle_plus(arg, info);
+		arg = handle_plus(arg);
 	else if (info->minus == 1)
 		arg = handle_minus(arg, info);
 	return (arg);
