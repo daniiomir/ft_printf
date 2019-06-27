@@ -97,52 +97,10 @@ char		*handle_minus(char *string, t_arginfo *info)
 	return (string);
 }
 
-// char		*set_size(t_arginfo *info, va_list *args)
-// {
-// 	if ()
-// }
-
-char	*get_arg(t_arginfo *info, va_list *args)
-{
-	char	*string;
-
-	if (info->type == '%')
-	{
-		string = ft_strnew(1);
-		string[0] = '%';
-		return (string);
-	}
-	else if (info->type == 's')
-		return ((string = va_arg(*args, char *)) == NULL ? "(null)" : string);
-	else if (info->type == 'c')
-	{
-		string = ft_strnew(1);
-		string[0] = va_arg(*args, int);
-		return (string);
-	}
-	else if (info->type == 'i' || info->type == 'd')
-		return (ft_itoa(va_arg(*args, int)));
-	else if (info->type == 'u')
-		return (ft_itoa_base(va_arg(*args, unsigned int), 10));
-	else if (info->type == 'U')
-		return (ft_itoa_base(va_arg(*args, unsigned int), 10));
-	else if (info->type == 'o')
-		return (ft_itoa_base(va_arg(*args, unsigned int), 8));
-	else if (info->type == 'b')
-		return (ft_itoa_base(va_arg(*args, int), 2));
-	else if (info->type == 'X')
-		return (ft_itoa_base(va_arg(*args, unsigned int), 16));
-	else if (info->type == 'x')
-		return (ft_strlower(ft_itoa_base(va_arg(*args, unsigned int), 16)));
-	else if (info->type == 'p')
-		return (ft_strjoin("0x", ft_strlower(ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16))));
-	return ("\0");
-}
-
 char	*handle_flags(t_arginfo *info, va_list *args)
 {
 	char	*arg;
-
+	
 	arg = get_arg(info, args);
 	if (info->flag == '0' && ft_search_helper("iduUoxX", info->type) == 1)
 		arg = handle_zero(arg, info);

@@ -14,8 +14,8 @@ NAME = libftprintf.a
 LIBFT = lib/
 FLAGS = -Wall -Wextra -Werror
 HEADERS = ./includes
-SRCS = src/ft_printf.c src/engine.c src/parse.c src/argument.c
-OBJS = ft_printf.o engine.o parse.o argument.o
+SRCS = src/ft_printf.c src/engine.c src/parse.c src/argument.c src/size.c
+OBJS = ft_printf.o engine.o parse.o argument.o size.o
 
 all: $(NAME)
 
@@ -27,7 +27,7 @@ $(NAME):
 	@ranlib $(NAME)
 
 main: re all
-	@gcc $(FLAGS) -I $(HEADERS) -c src/main.c
+	@gcc -I $(HEADERS) -c src/main.c # $(FLAGS)
 	@gcc main.o -L. -lftprintf -o ft_printf_test
 	./ft_printf_test
 

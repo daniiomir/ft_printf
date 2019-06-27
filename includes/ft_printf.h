@@ -47,6 +47,6 @@ char	*handle_plus(char *string);
 char	*handle_octotorp(char *string, t_arginfo *info);
 char	*handle_minus(char *string, t_arginfo *info);
 
-char	*set_size(t_arginfo *info, va_list *args);
+char	*get_arg(t_arginfo *info, va_list *args);
 
 #endif

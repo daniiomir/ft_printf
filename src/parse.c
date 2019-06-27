@@ -60,6 +60,7 @@ size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i)
 size_t	ft_parse_width(const char *format, t_arginfo *info, size_t i)
 {
 	size_t	j;
+	size_t  w;
 	char 	*width;
 
 	j = i;
@@ -67,7 +68,9 @@ size_t	ft_parse_width(const char *format, t_arginfo *info, size_t i)
 	{
 		while (ft_isdigit(format[j + 1]))
 			j++;
-		width = ft_strsub(format, i + 1, j - i);
+        (j - i == 1) ? (w = j - i) : (w = j);
+		//width = ft_strsub(format, i + 1, j - i);
+        width = ft_strsub(format, i + 1, w);
 		info->width = ft_atoi(width);
 		free(width);
 		return (j);
@@ -117,31 +120,3 @@ size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i)
 		info->type = format[i + 1];
 	return (i + 1);
 }
-
-/*
-	if (format[i + 1] == '%')
-		info->type = '%';
-	else if (format[i + 1] == 's')
-		info->type = 's';
-	else if (format[i + 1] == 'c')
-		info->type = 'c';
-	else if (format[i + 1] == 'i')
-		info->type = 'i';
-	else if (format[i + 1] == 'd')
-		info->type = 'd';
-	else if (format[i + 1] == 'u')
-		info->type = 'u';
-	else if (format[i + 1] == 'U')
-		info->type = 'U';
-	else if (format[i + 1] == 'o')
-		info->type = 'o';
-	else if (format[i + 1] == 'b')
-		info->type = 'b';
-	else if (format[i + 1] == 'X')
-		info->type = 'X';
-	else if (format[i + 1] == 'x')
-		info->type = 'x';
-	else if (format[i + 1] == 'p')
-		info->type = 'p';
-	
-*/

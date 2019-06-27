@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <limits.h>
 #include "ft_printf.h"
 
 int	main(void)
@@ -89,10 +90,25 @@ int	main(void)
 
 	// ft_printf("% 4i\n", 12);
 	// printf("% 4i\n", 12);
+
+//	ft_printf("%-10x|\n\n", 42);
 	// printf("%2%\n");
 	// ft_printf("%2%\n");
 
-	printf("%-10x|\n", 42);
-	ft_printf("%-10x|\n", 42);
+
+//	printf("%hhi\n", -42);
+//	ft_printf("%hhi\n\n", -42);
+//
+//	printf("%hi\n", -42);
+//	ft_printf("%hi\n\n", -42);
+	
+//	printf("%i\n", -42);
+//	ft_printf("%i\n\n", -42);
+
+//    printf("%lli\n", -42);
+//    ft_printf("%lli\n\n", -42);
+
+    printf("%lu\n", -42);
+    ft_printf("%lu\n\n", -42);
 
 }
