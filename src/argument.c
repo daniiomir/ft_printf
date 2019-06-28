@@ -104,7 +104,7 @@ char	*handle_flags(t_arginfo *info, va_list *args)
 	arg = get_arg(info, args);
 	if (info->flag == '0' && ft_search_helper("iduUoxX", info->type) == 1)
 		arg = handle_zero(arg, info);
-	else if (info->flag == ' ')
+	else if (info->flag == ' ' || (info->flag == '\0' && info->width > 0))
 		arg = handle_space(arg, info);
 	else if (info->flag == '#')
 		arg = handle_octotorp(arg, info);

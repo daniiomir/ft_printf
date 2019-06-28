@@ -26,6 +26,20 @@ static size_t	ft_next_ending(const char *format, size_t i)
 	return (j);
 }
 
+static size_t	ft_next_ending_p(t_arginfo *info, const char *format, size_t i)
+{
+    size_t	j;
+
+    j = i;
+    while (format[j])
+    {
+        if (format[j] == '%' && format[j - 1] != '%' && info->type != '%')
+            break ;
+        j++;
+    }
+    return (j);
+}
+
 char		*ft_strjoin_free2(char *s1, char *s2)
 {
 	char	*result;
@@ -76,12 +90,15 @@ char			*ft_engine(const char *format, va_list *args)
 			i = ft_parse(format, info, i);
 			arg = handle_flags(info, args);
 			string = ft_strjoin_free_all(string, arg);
-			free(info);
 		}
-		ft_strlen(format) == 2 ? j = 0 : (j = ft_next_ending(format, i) - i - 1);
+		if (info->type == '%')
+		    ft_strlen(format) == 2 ? j = 0 : (j = ft_next_ending_p(info, format, i) - 1);
+		else
+            ft_strlen(format) == 2 ? j = 0 : (j = ft_next_ending(format, i) - i - 1);
 		tmp = ft_strsub(format, i + 1, j);
 		string = ft_strjoin_free_all(string, tmp);
-		i = ft_next_ending(format, i);
+		i = ft_next_ending_p(info, format, i);
+        free(info);
 	}
 	return (string);
 }
