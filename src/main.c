@@ -109,6 +109,6 @@ int	main(void)
 //    ft_printf("%lli\n\n", -42);
 
     ft_printf("%5i\n", -42);
-    ft_printf("%5%\n\n");
+    ft_printf("%5%\n");
 
 }
