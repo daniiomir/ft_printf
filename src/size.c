@@ -77,20 +77,45 @@ static char *get_i(va_list *args, t_arginfo *info)
 static char *get_c(va_list *args, t_arginfo *info)
 {
 	char	*for_char;
+    char    *for_null;
 
+    for_char = ft_strnew(1);
+    for_null = "^@";
 	if (info->type == '%')
 	{
-		for_char = ft_strnew(1);
 		for_char[0] = '%';
 		return (for_char);
 	}
 	else if (info->type == 'c')
 	{
-		for_char = ft_strnew(1);
 		for_char[0] = va_arg(*args, int);
+		if (for_char[0] == 0)
+        {
+		    free(for_char);
+            for_char = ft_strsub(for_null, 0, ft_strlen(for_null));
+        }
 		return (for_char);
 	}
-	return ("\0");
+	else
+    {
+	    for_char[0] = '\0';
+	    return (for_char);
+    }
+}
+static char *get_s(va_list *args)
+{
+    char    *for_string;
+    char    *for_null;
+
+    for_string = va_arg(*args, char *);
+    if (for_string == NULL)
+    {
+        for_null = "(null)";
+        for_string = ft_strsub(for_null, 0, ft_strlen(for_null));
+        return (for_string);
+    }
+    else
+        return (ft_strdup(for_string));
 }
 
 char		*get_arg(t_arginfo *info, va_list *args)
@@ -99,8 +124,8 @@ char		*get_arg(t_arginfo *info, va_list *args)
 
     string = NULL;
     if (info->type == 's')
-        string = va_arg(*args, char *);
-    else if (info->type == 'c' || info->type == '%')
+        string = get_s(args);
+    else if (info->type == 'c' || info->type == '%' || info->type == '\0')
         string = get_c(args, info);
     else if (info->type == 'i' || info->type == 'd')
         string = get_i(args, info);
@@ -115,6 +140,6 @@ char		*get_arg(t_arginfo *info, va_list *args)
     else if (info->type == 'o')
         string = get_x(args, info, 8);
     else if (info->type == 'p')
-        string = ft_strjoin("0x", ft_strlower(ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16)));
-    return (string == NULL ? "(null)" : string);
+        string = ft_strjoin_free2("0x", ft_strlower(ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16)));
+    return (string);
 }

@@ -106,7 +106,7 @@ char	*handle_flags(t_arginfo *info, va_list *args)
 		arg = handle_zero(arg, info);
 	else if (info->flag == ' ' || (info->flag == '\0' && info->width > 0))
 		arg = handle_space(arg, info);
-	else if (info->flag == '#')
+	else if (info->flag == '#' && arg[0] != '0')
 		arg = handle_octotorp(arg, info);
 	else if (info->flag == '+' && ft_search_helper("iduU", info->type) == 1)
 		arg = handle_plus(arg);
