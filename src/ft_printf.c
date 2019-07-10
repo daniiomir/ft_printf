@@ -17,11 +17,13 @@ int		ft_printf(const char *format, ...)
 	char	*string;
 	va_list	args;
 	size_t	len;
+    size_t	len_for_null;
 
+	len_for_null = 0;
 	va_start(args, format);
-	string = ft_engine(format, &args);
-	ft_putstr(string);
-	len = ft_strlen(string);
+	string = ft_engine(format, &args, &len_for_null);
+    len = ft_strlen(string) + len_for_null;
+	write(1, string, len);
 	free(string);
 	va_end(args);
 	return (len);

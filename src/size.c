@@ -74,13 +74,11 @@ static char *get_i(va_list *args, t_arginfo *info)
 	return (string);
 }
 
-static char *get_c(va_list *args, t_arginfo *info)
+static char *get_c(va_list *args, t_arginfo *info, size_t *len_for_null)
 {
 	char	*for_char;
-    char    *for_null;
 
     for_char = ft_strnew(1);
-    for_null = "^@";
 	if (info->type == '%')
 	{
 		for_char[0] = '%';
@@ -90,10 +88,7 @@ static char *get_c(va_list *args, t_arginfo *info)
 	{
 		for_char[0] = va_arg(*args, int);
 		if (for_char[0] == 0)
-        {
-		    free(for_char);
-            for_char = ft_strsub(for_null, 0, ft_strlen(for_null));
-        }
+            *len_for_null = 1;
 		return (for_char);
 	}
 	else
@@ -118,7 +113,7 @@ static char *get_s(va_list *args)
         return (ft_strdup(for_string));
 }
 
-char		*get_arg(t_arginfo *info, va_list *args)
+char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
 {
 	char	*string;
 
@@ -126,7 +121,7 @@ char		*get_arg(t_arginfo *info, va_list *args)
     if (info->type == 's')
         string = get_s(args);
     else if (info->type == 'c' || info->type == '%' || info->type == '\0')
-        string = get_c(args, info);
+        string = get_c(args, info, len_for_null);
     else if (info->type == 'i' || info->type == 'd')
         string = get_i(args, info);
     else if (info->type == 'U')

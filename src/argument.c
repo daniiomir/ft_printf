@@ -97,11 +97,11 @@ char		*handle_minus(char *string, t_arginfo *info)
 	return (string);
 }
 
-char	*handle_flags(t_arginfo *info, va_list *args)
+char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
 {
 	char	*arg;
 	
-	arg = get_arg(info, args);
+	arg = get_arg(info, args, len_for_null);
 	if (info->flag == '0' && ft_search_helper("iduUoxX", info->type) == 1)
 		arg = handle_zero(arg, info);
 	else if (info->flag == ' ' || (info->flag == '\0' && info->width > 0))

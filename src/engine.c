@@ -63,7 +63,7 @@ char		*ft_strjoin_free_all(char *s1, char *s2)
 	return (result);
 }
 
-char			*ft_engine(const char *format, va_list *args)
+char			*ft_engine(const char *format, va_list *args, size_t *len_for_null)
 {
 	size_t		i;
 	size_t  	j;
@@ -84,11 +84,11 @@ char			*ft_engine(const char *format, va_list *args)
 	}
 	while (format[i] != '\0')
 	{
+        info = (t_arginfo *)malloc(sizeof(t_arginfo));
 		if (format[i] == '%')
 		{
-			info = (t_arginfo *)malloc(sizeof(t_arginfo));
 			i = ft_parse(format, info, i);
-			arg = handle_flags(info, args);
+			arg = handle_flags(info, args, len_for_null);
 			string = ft_strjoin_free_all(string, arg);
 		}
 		if (info->type == '%')

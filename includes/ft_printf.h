@@ -31,7 +31,7 @@ char	*ft_strjoin_free_all(char *s1, char *s2);
 int		ft_search_helper(const char *string, char search);
 
 int		ft_printf(const char *format, ...);
-char	*ft_engine(const char *format, va_list *args);
+char	*ft_engine(const char *format, va_list *args, size_t *len_for_null);
 
 size_t	ft_parse(const char *format, t_arginfo *info, size_t i);
 size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i);
@@ -40,13 +40,13 @@ size_t	ft_parse_precision(const char *format, t_arginfo *info, size_t i);
 size_t	ft_parse_size(const char *format, t_arginfo *info, size_t i);
 size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i);
 
-char	*handle_flags(t_arginfo *info, va_list *args);
+char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null);
 char	*handle_zero(char *string, t_arginfo *info);
 char	*handle_space(char *string, t_arginfo *info);
 char	*handle_plus(char *string);
 char	*handle_octotorp(char *string, t_arginfo *info);
 char	*handle_minus(char *string, t_arginfo *info);
 
-char	*get_arg(t_arginfo *info, va_list *args);
+char	*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null);
 
 #endif
