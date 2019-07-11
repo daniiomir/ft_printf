@@ -104,13 +104,13 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
 	arg = get_arg(info, args, len_for_null);
 	if (info->flag == '0' && ft_search_helper("iduUoxX", info->type) == 1)
 		arg = handle_zero(arg, info);
-	else if (info->flag == ' ' || (info->flag == '\0' && info->width > 0))
+	if (info->flag == ' ' || ( info->flag != '-' && info->width > 0))
 		arg = handle_space(arg, info);
-	else if (info->flag == '#' && arg[0] != '0')
+	if (info->flag == '#' && arg[0] != '0' && info->type != 'o')
 		arg = handle_octotorp(arg, info);
-	else if (info->flag == '+' && ft_search_helper("iduU", info->type) == 1)
+	if (info->flag == '+' && ft_search_helper("id", info->type) == 1)
 		arg = handle_plus(arg);
-	else if (info->flag == '-')
+	if (info->flag == '-')
 		arg = handle_minus(arg, info);
 	return (arg);
 }

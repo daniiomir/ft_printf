@@ -23,8 +23,13 @@ static char *get_u(va_list *args, t_arginfo *info)
 		else
 			string = ft_itoa_base((unsigned short int)va_arg(*args, int), 10);
 	}
+	else if (info->size[0] == 'l')
+	    if (info->size[1] == 'l')
+		    string = ft_itoa_base(va_arg(*args, unsigned long long int), 10);
+	    else
+            string = ft_itoa_base(va_arg(*args, unsigned long int), 10);
 	else
-		string = ft_itoa_base(va_arg(*args, unsigned int), 10);
+	    string = ft_itoa_base(va_arg(*args, unsigned int), 10);
 	return (string);
 }
 
@@ -64,10 +69,9 @@ static char *get_i(va_list *args, t_arginfo *info)
 	}
 	else if (info->size[0] == 'l')
 	{
-		if (info->size[1] == 'l')
-			string = ft_unsigned_itoa(va_arg(*args, unsigned long long int));
-		else
-			string = ft_unsigned_itoa(va_arg(*args, unsigned long int));
+//		if (info->size[1] == 'l')
+//			string = ft_itoa(va_arg(*args, long long int));
+        string = ft_itoa(va_arg(*args, long long int));
 	}
 	else
 		string = ft_itoa(va_arg(*args, int));
@@ -133,7 +137,12 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
     else if (info->type == 'X')
         string = get_x(args, info, 16);
     else if (info->type == 'o')
-        string = get_x(args, info, 8);
+    {
+        if (info->flag == '#')
+            string = handle_octotorp(get_x(args, info, 8), info);
+        else
+            string = get_x(args, info, 8);
+    }
     else if (info->type == 'p')
         string = ft_strjoin_free2("0x", ft_strlower(ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16)));
     return (string);

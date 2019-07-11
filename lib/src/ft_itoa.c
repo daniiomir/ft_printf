@@ -12,12 +12,12 @@
 
 #include "libft.h"
 
-char	*ft_itoa(int n)
+char	*ft_itoa(long long int n)
 {
-	int		size;
-	int		negative;
-	int		tmp;
-	char	*array;
+	long long int		size;
+	long long int		negative;
+	long long int		tmp;
+	char	            *array;
 
 	tmp = n;
 	size = 1;

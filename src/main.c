@@ -148,7 +148,9 @@ int	main(void)
 //    ft_printf("%s%s%s\n", "test", "test", "test");
 //    ft_printf("%C\n", 15000);
 
-    printf("%c\n", 0);
-    ft_printf("%c", 0);
+//    printf("%c\n", 0);
+//    ft_printf("%c", 0);
+    ft_printf("%#6o\n", 2500);
+    printf("%#6o", 2500);
 
 }
