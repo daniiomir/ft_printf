@@ -68,11 +68,7 @@ static char *get_i(va_list *args, t_arginfo *info)
 			string = ft_itoa((short int)va_arg(*args, int));
 	}
 	else if (info->size[0] == 'l')
-	{
-//		if (info->size[1] == 'l')
-//			string = ft_itoa(va_arg(*args, long long int));
         string = ft_itoa(va_arg(*args, long long int));
-	}
 	else
 		string = ft_itoa(va_arg(*args, int));
 	return (string);
@@ -92,7 +88,11 @@ static char *get_c(va_list *args, t_arginfo *info, size_t *len_for_null)
 	{
 		for_char[0] = va_arg(*args, int);
 		if (for_char[0] == 0)
+		{
+		    if (info->width > 0)
+                info->width--;
             *len_for_null = 1;
+        }
 		return (for_char);
 	}
 	else

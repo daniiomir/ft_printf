@@ -150,7 +150,6 @@ int	main(void)
 
 //    printf("%c\n", 0);
 //    ft_printf("%c", 0);
-    ft_printf("%#6o\n", 2500);
-    printf("%#6o", 2500);
-
+    ft_printf("null %c and text", 0);
+    printf("\nnull %c and text", 0);
 }
