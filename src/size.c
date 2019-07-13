@@ -117,7 +117,7 @@ static char *get_s(va_list *args)
         return (ft_strdup(for_string));
 }
 
-char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null) // WORK WITH FLAGS !!!
+char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
 {
 	char	*string;
 
@@ -150,14 +150,9 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null) // WORK WIT
                 }
                 else
                     string = ft_strlower(string);
-//                string = ft_strlower(get_x(args, info, 16));
             }
             else if (info->type == 'X')
-            {
                 string = get_x(args, info, 16);
-//                if (string[0] != '0')
-//                    string = handle_octotorp(string, info);
-            }
         }
         else
         {

@@ -51,17 +51,7 @@ size_t	ft_parse(const char *format, t_arginfo *info, size_t i)
 	return (i);
 }
 
-//size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i) // work with flags!!!!!!!!!!!!!!!
-//{
-//	if (ft_search_helper("# 0-+", format[i + 1]))
-//	{
-//		info->flag[0] = format[i + 1];
-//		return (i + 1);
-//	}
-//	return (i);
-//}
-
-size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i) // work with flags!!!!!!!!!!!!!!!
+size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i)
 {
     size_t  j;
 
@@ -99,7 +89,6 @@ size_t	ft_parse_width(const char *format, t_arginfo *info, size_t i)
 		while (ft_isdigit(format[j + 1]))
 			j++;
         (j - i == 1) ? (w = j - i) : (w = j);
-		//width = ft_strsub(format, i + 1, j - i);
         width = ft_strsub(format, i + 1, w);
 		info->width = ft_atoi(width);
 		free(width);

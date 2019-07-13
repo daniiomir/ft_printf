@@ -166,6 +166,9 @@ int	main(void)
 //
 //    ft_printf("%-10x\n", 42);
 //    printf("%-10x", 42);
-    ft_printf("%#-08x\n", 42);
-    printf("%#-08x", 42);
+    ft_printf("%05d\n", -42);
+    printf("%05d\n\n", -42);
+
+    ft_printf("%0+5d\n", -42);
+    printf("%0+5d", -42);
 }
