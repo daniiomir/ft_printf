@@ -142,7 +142,12 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null) // WORK WIT
             {
                 string = get_x(args, info, 16);
                 if (string[0] != '0')
-                    string = handle_octotorp(ft_strlower(string), info);
+                {
+                    if (info->flag[3] == '0' && info->flag[1] != '-')
+                        string = handle_octotorp(handle_zero(ft_strlower(string), info), info);
+                    else
+                        string = handle_octotorp(ft_strlower(string), info);
+                }
                 else
                     string = ft_strlower(string);
 //                string = ft_strlower(get_x(args, info, 16));

@@ -105,7 +105,7 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null) // WORK
 	char	*arg;
 	
 	arg = get_arg(info, args, len_for_null);
-	if (info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type) == 1)
+	if (info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type) == 1 && info->flag[1] != '-')
 		arg = handle_zero(arg, info);
 	if (info->flag[4] == ' ' || ( info->flag[1] != '-' && info->width > 0))
 		arg = handle_space(arg, info);
