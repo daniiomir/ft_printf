@@ -51,14 +51,40 @@ size_t	ft_parse(const char *format, t_arginfo *info, size_t i)
 	return (i);
 }
 
+//size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i) // work with flags!!!!!!!!!!!!!!!
+//{
+//	if (ft_search_helper("# 0-+", format[i + 1]))
+//	{
+//		info->flag[0] = format[i + 1];
+//		return (i + 1);
+//	}
+//	return (i);
+//}
+
 size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i) // work with flags!!!!!!!!!!!!!!!
 {
-	if (ft_search_helper("# 0-+", format[i + 1]))
-	{
-		info->flag[0] = format[i + 1];
-		return (i + 1);
-	}
-	return (i);
+    size_t  j;
+
+    if (ft_search_helper("# 0-+", format[i + 1]))
+    {
+        j = 1;
+        while (ft_search_helper("# 0-+", format[i + j]) == 1 && j <= 5)
+        {
+            if (format[i + j] == '#')
+                info->flag[0] = '#';
+            else if (format[i + j] == '-')
+                info->flag[1] = '-';
+            else if (format[i + j] == '+')
+                info->flag[2] = '+';
+            else if (format[i + j] == '0')
+                info->flag[3] = '0';
+            else if (format[i + j] == ' ')
+                info->flag[4] = ' ';
+            j++;
+        }
+        return (i + j - 1);
+    }
+    return (i);
 }
 
 size_t	ft_parse_width(const char *format, t_arginfo *info, size_t i)

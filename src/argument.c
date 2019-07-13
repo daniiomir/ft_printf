@@ -29,7 +29,10 @@ char		*handle_zero(char *string, t_arginfo *info)
 	len = ft_strlen(string);
 	if (len < info->width)
 	{
-		len = info->width - len;
+	    if (info->flag[0] == '#')
+		    len = info->width - len - 2;
+	    else
+            len = info->width - len;
 		zeroes = ft_strnew(len);
 		ft_strset(zeroes, len, '0');
 		string = ft_strjoin_free_all(zeroes, string);
@@ -102,15 +105,15 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null) // WORK
 	char	*arg;
 	
 	arg = get_arg(info, args, len_for_null);
-	if (info->flag[0] == '0' && ft_search_helper("iduUoxX", info->type) == 1)
+	if (info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type) == 1)
 		arg = handle_zero(arg, info);
-	if (info->flag[0] == ' ' || ( info->flag[0] != '-' && info->width > 0))
+	if (info->flag[4] == ' ' || ( info->flag[1] != '-' && info->width > 0))
 		arg = handle_space(arg, info);
-	if (info->flag[0] == '#' && arg[0] != '0' && ft_search_helper("oxX", info->type) == 0)
+	if (info->flag[0] == '#' && (arg[0] != '0' || arg[1] != '\0') && ft_search_helper("oX", info->type) == 1 && info->width == 0)
 		arg = handle_octotorp(arg, info);
-	if (info->flag[0] == '+' && ft_search_helper("id", info->type) == 1)
+	if (info->flag[2] == '+' && ft_search_helper("id", info->type) == 1)
 		arg = handle_plus(arg);
-	if (info->flag[0] == '-')
+	if (info->flag[1] == '-')
 		arg = handle_minus(arg, info);
 	return (arg);
 }
