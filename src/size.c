@@ -117,7 +117,7 @@ static char *get_s(va_list *args)
         return (ft_strdup(for_string));
 }
 
-char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
+char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null) // WORK WITH FLAGS !!!
 {
 	char	*string;
 
@@ -132,16 +132,36 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
         string = ft_itoa_base(va_arg(*args, unsigned int), 10);
     else if (info->type == 'u')
         string = get_u(args, info);
-    else if (info->type == 'x')
-        string = ft_strlower(get_x(args, info, 16));
-    else if (info->type == 'X')
-        string = get_x(args, info, 16);
-    else if (info->type == 'o')
+    else if (info->type == 'o' || info->type == 'x' || info->type == 'X')
     {
-        if (info->flag == '#')
-            string = handle_octotorp(get_x(args, info, 8), info);
+        if (info->flag[0] == '#')
+        {
+            if (info->type == 'o')
+                string = handle_octotorp(get_x(args, info, 8), info);
+            else if (info->type == 'x')
+            {
+                string = get_x(args, info, 16);
+                if (string[0] != '0')
+                    string = handle_octotorp(ft_strlower(string), info);
+                else
+                    string = ft_strlower(string);
+            }
+            else if (info->type == 'X')
+            {
+                string = get_x(args, info, 16);
+                if (string[0] != '0')
+                    string = handle_octotorp(string, info);
+            }
+        }
         else
-            string = get_x(args, info, 8);
+        {
+            if (info->type == 'o')
+                string = get_x(args, info, 8);
+            else if (info->type == 'x')
+                string = ft_strlower(get_x(args, info, 16));
+            else if (info->type == 'X')
+                string = get_x(args, info, 16);
+        }
     }
     else if (info->type == 'p')
         string = ft_strjoin_free2("0x", ft_strlower(ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16)));

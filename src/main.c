@@ -150,6 +150,13 @@ int	main(void)
 
 //    printf("%c\n", 0);
 //    ft_printf("%c", 0);
-    ft_printf("null %c and text", 0);
-    printf("\nnull %c and text", 0);
+//    ft_printf("null %c and text", 0);
+//    printf("\nnull %c and text", 0);
+
+    ft_printf("%#8x\n", 42);
+    printf("%#8x\n\n", 42);
+    ft_printf("%#8x\n", 0);
+    printf("%#8x\n\n", 0);
+    ft_printf("%X\n", 42);
+    printf("%X", 42);
 }

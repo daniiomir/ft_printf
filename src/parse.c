@@ -14,11 +14,15 @@
 
 static void	ft_clean_info(t_arginfo *info)
 {
+    size_t  i;
+
+    i = 0;
 	info->width = 0;
 	info->precision = 0;
 	info->size[0] = '\0';
 	info->size[1] = '\0';
-	info->flag = '\0';
+	while (i < 5)
+	    info->flag[i++] = '\0';
 	info->type = '\0';
 }
 
@@ -47,11 +51,11 @@ size_t	ft_parse(const char *format, t_arginfo *info, size_t i)
 	return (i);
 }
 
-size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i)
+size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i) // work with flags!!!!!!!!!!!!!!!
 {
 	if (ft_search_helper("# 0-+", format[i + 1]))
 	{
-		info->flag = format[i + 1];
+		info->flag[0] = format[i + 1];
 		return (i + 1);
 	}
 	return (i);

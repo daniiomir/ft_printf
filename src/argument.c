@@ -97,20 +97,20 @@ char		*handle_minus(char *string, t_arginfo *info)
 	return (string);
 }
 
-char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
+char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null) // WORK WITH FLAGS!!!!
 {
 	char	*arg;
 	
 	arg = get_arg(info, args, len_for_null);
-	if (info->flag == '0' && ft_search_helper("iduUoxX", info->type) == 1)
+	if (info->flag[0] == '0' && ft_search_helper("iduUoxX", info->type) == 1)
 		arg = handle_zero(arg, info);
-	if (info->flag == ' ' || ( info->flag != '-' && info->width > 0))
+	if (info->flag[0] == ' ' || ( info->flag[0] != '-' && info->width > 0))
 		arg = handle_space(arg, info);
-	if (info->flag == '#' && arg[0] != '0' && info->type != 'o')
+	if (info->flag[0] == '#' && arg[0] != '0' && ft_search_helper("oxX", info->type) == 0)
 		arg = handle_octotorp(arg, info);
-	if (info->flag == '+' && ft_search_helper("id", info->type) == 1)
+	if (info->flag[0] == '+' && ft_search_helper("id", info->type) == 1)
 		arg = handle_plus(arg);
-	if (info->flag == '-')
+	if (info->flag[0] == '-')
 		arg = handle_minus(arg, info);
 	return (arg);
 }
