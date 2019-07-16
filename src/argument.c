@@ -43,7 +43,7 @@ char		*handle_zero(char *string, t_arginfo *info)
 	return (string);
 }
 
-char		*handle_space(char *string, t_arginfo *info)
+char		*handle_space(char *string, t_arginfo *info, size_t *len_for_null)
 {
 	size_t	len;
 	char	*spaces;
@@ -54,7 +54,10 @@ char		*handle_space(char *string, t_arginfo *info)
 		len = info->width - len;
 		spaces = ft_strnew(len);
 		ft_strset(spaces, len, ' ');
-		string = ft_strjoin_free_all(spaces, string);
+		if (*len_for_null > 0)
+            string = ft_strjoin_null(spaces, string, len_for_null);
+		else
+		    string = ft_strjoin_free_all(spaces, string);
 	}
     if (info->width == 0 && string[0] != '-' && string[0] != '+' && ft_search_helper("id", info->type) == 1)
         string = ft_strjoin_free2(" ", string);
@@ -111,7 +114,7 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
 	if (info->flag[2] == '+' && ft_search_helper("id", info->type) == 1)
 		arg = handle_plus(arg);
     if (info->flag[4] == ' ' || ( info->flag[1] != '-' && info->width > 0))
-            arg = handle_space(arg, info);
+            arg = handle_space(arg, info, len_for_null);
 	if (info->flag[1] == '-')
 		arg = handle_minus(arg, info);
 	return (arg);

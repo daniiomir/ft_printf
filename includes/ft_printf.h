@@ -26,6 +26,7 @@ typedef struct		s_arginfo
 	size_t 	precision;
 }					t_arginfo;
 
+char    *ft_strjoin_null(char *s1, char *s2, size_t *len_for_null);
 char	*ft_strjoin_free2(char *s1, char *s2);
 char	*ft_strjoin_free_all(char *s1, char *s2);
 int		ft_search_helper(const char *string, char search);
@@ -42,7 +43,7 @@ size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i);
 
 char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null);
 char	*handle_zero(char *string, t_arginfo *info);
-char	*handle_space(char *string, t_arginfo *info);
+char	*handle_space(char *string, t_arginfo *info, size_t *len_for_null);
 char	*handle_plus(char *string);
 char	*handle_octotorp(char *string, t_arginfo *info);
 char	*handle_minus(char *string, t_arginfo *info);

@@ -166,6 +166,16 @@ int	main(void)
 //
 //    ft_printf("%-10x\n", 42);
 //    printf("%-10x", 42);
+
+
+//    ft_printf("null %c and text\n", 0);
+//    printf("null %c and text\n\n", 0);
+
+//    ft_printf("{%3c}\n", 0);
+//	printf("{%3c}\n", 0);
+//    ft_printf("@moulitest: %c\n", 0);
+//    printf("@moulitest: %c\n", 0);
+
     ft_printf("%05d\n", -42);
     printf("%05d\n\n", -42);
 
