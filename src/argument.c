@@ -24,21 +24,30 @@ static void ft_strset(char *string, size_t len, char c)
 char		*handle_zero(char *string, t_arginfo *info)
 {
 	size_t	len;
+	size_t 	sign;
 	char	*zeroes;
 
+	sign = 0;
 	len = ft_strlen(string);
+	if (string[0] == '-')
+	{
+		string[0] = '0';
+		sign++;
+	}
 	if (len < info->width)
 	{
 	    if (info->flag[0] == '#')
 		    len = info->width - len - 2;
 	    else
-            if (info->flag[2] == '+')
+            if (info->flag[2] == '+' && sign == 0)
                 len = info->width - len - 1;
             else
                 len = info->width - len;
 		zeroes = ft_strnew(len);
 		ft_strset(zeroes, len, '0');
 		string = ft_strjoin_free_all(zeroes, string);
+		if (sign == 1)
+			string[0] = '-';
 	}
 	return (string);
 }
@@ -107,7 +116,7 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
 	char	*arg;
 	
 	arg = get_arg(info, args, len_for_null);
-	if (info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type) == 1 && info->flag[1] != '-')
+	if (info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type) == 1 && info->flag[1] != '-' && info->width > 0)
 		arg = handle_zero(arg, info);
 	if (info->flag[0] == '#' && (arg[0] != '0' || arg[1] != '\0') && ft_search_helper("oX", info->type) == 1 && info->width == 0)
 		arg = handle_octotorp(arg, info);

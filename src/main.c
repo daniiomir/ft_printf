@@ -180,5 +180,7 @@ int	main(void)
     printf("%05d\n\n", -42);
 
     ft_printf("%0+5d\n", -42);
-    printf("%0+5d", -42);
+    printf("%0+5d\n\n", -42);
+
+	ft_printf("%0+5d", 42);
 }
