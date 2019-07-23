@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   argument.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mevelyne <mevelyne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/11 18:42:50 by swarner           #+#    #+#             */
-/*   Updated: 2019/06/11 18:42:52 by swarner          ###   ########.fr       */
+/*   Updated: 2019/07/19 19:59:08 by mevelyne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
 static void ft_strset(char *string, size_t len, char c)
 {
 	size_t	i;
@@ -21,7 +20,7 @@ static void ft_strset(char *string, size_t len, char c)
 		string[i++] = c;
 }
 
-char		*handle_zero(char *string, t_arginfo *info)
+char		*handle_zero(char *string, t_arginfo *info, size_t flag_pw)
 {
 	size_t	len;
 	size_t 	sign;
@@ -34,15 +33,15 @@ char		*handle_zero(char *string, t_arginfo *info)
 		string[0] = '0';
 		sign++;
 	}
-	if (len < info->width)
+	if (len < flag_pw)
 	{
 	    if (info->flag[0] == '#')
-		    len = info->width - len - 2;
+		    len = flag_pw - len - 2;
 	    else
             if (info->flag[2] == '+' && sign == 0)
-                len = info->width - len - 1;
+                len = flag_pw - len - 1;
             else
-                len = info->width - len;
+                len = flag_pw - len;
 		zeroes = ft_strnew(len);
 		ft_strset(zeroes, len, '0');
 		string = ft_strjoin_free_all(zeroes, string);
@@ -94,7 +93,18 @@ char		*handle_octotorp(char *string, t_arginfo *info)
 	}
 	return (string);
 }
-
+char	*handle_string_precision(char *string, t_arginfo *info)
+{
+	size_t	len;
+	char *result;
+	len = ft_strlen(string);
+	if (info->precision >= len || (ft_strchr(string, '.') == NULL && info->type == 'd'))
+		return (string);
+	result = ft_strnew(len);
+	result = ft_strncpy(result, string, info->precision);
+	free(string);
+	return (result);
+}
 char		*handle_minus(char *string, t_arginfo *info)
 {
 	size_t	len;
@@ -116,9 +126,16 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
 	char	*arg;
 	
 	arg = get_arg(info, args, len_for_null);
-	if (info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type) == 1 && info->flag[1] != '-' && info->width > 0)
-		arg = handle_zero(arg, info);
-	if (info->flag[0] == '#' && (arg[0] != '0' || arg[1] != '\0') && ft_search_helper("oX", info->type) == 1 && info->width == 0)
+	if ((info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type) == 1
+	&& info->flag[1] != '-' && info->width > 0) ||
+	(info->precision > 0 && info->type != 'f'))
+	{
+		if (info->precision)
+			arg = handle_zero(arg, info, info->precision);
+		else
+			arg = handle_zero(arg, info, info->width);
+	}
+	if (info->flag[0] == '#' && (arg[0] != '0' || arg[1] != '\0') && ft_search_helper("X", info->type) == 1 && info->width == 0)
 		arg = handle_octotorp(arg, info);
 	if (info->flag[2] == '+' && ft_search_helper("id", info->type) == 1)
 		arg = handle_plus(arg);
@@ -126,5 +143,7 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
             arg = handle_space(arg, info, len_for_null);
 	if (info->flag[1] == '-')
 		arg = handle_minus(arg, info);
+	if (info->precision > 0 && ft_search_helper("sd", info->type) && !info->width)
+		arg = handle_string_precision(arg, info);
 	return (arg);
 }

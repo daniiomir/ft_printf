@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   size.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mevelyne <mevelyne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:55:30 by swarner           #+#    #+#             */
-/*   Updated: 2019/06/27 16:55:32 by swarner          ###   ########.fr       */
+/*   Updated: 2019/07/19 19:52:49 by mevelyne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
     string = NULL;
     if (info->type == 's')
         string = get_s(args);
+    else if (info->type == 'f' || info->type == 'F')
+        string = type_f(args,info);
     else if (info->type == 'c' || info->type == '%' || info->type == '\0')
         string = get_c(args, info, len_for_null);
     else if (info->type == 'i' || info->type == 'd')
@@ -144,7 +146,7 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
                 if (string[0] != '0')
                 {
                     if (info->flag[3] == '0' && info->flag[1] != '-')
-                        string = handle_octotorp(handle_zero(ft_strlower(string), info), info);
+                        string = handle_octotorp(handle_zero(ft_strlower(string), info, info->width), info);
                     else
                         string = handle_octotorp(ft_strlower(string), info);
                 }

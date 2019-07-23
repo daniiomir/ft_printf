@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: swarner <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: mevelyne <mevelyne@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/16 17:09:26 by swarner           #+#    #+#              #
-#    Updated: 2019/05/16 17:09:28 by swarner          ###   ########.fr        #
+#    Updated: 2019/07/15 09:50:47 by mevelyne         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 LIBFT = lib/
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 HEADERS = ./includes
-SRCS = src/ft_printf.c src/engine.c src/parse.c src/argument.c src/size.c
-OBJS = ft_printf.o engine.o parse.o argument.o size.o
+SRCS = src/ft_printf.c src/engine.c src/parse.c src/argument.c src/size.c src/float.c
+OBJS = ft_printf.o engine.o parse.o argument.o size.o float.o
 
 all: $(NAME)
 
