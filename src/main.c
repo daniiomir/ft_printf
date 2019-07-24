@@ -259,6 +259,39 @@ int	main(void) {
 //	ft_printf("%.2s is a string\n", "");
 //	printf("%.2s is a string", "");
 
-	ft_printf("%5.2s is a string\n", "this");
-	printf("%5.2s is a string", "this");
+//	ft_printf("%.2x\n", 5427);
+//	printf("%.2x", 5427);
+
+//	ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
+//	printf("@moulitest: %#.x %#.0x\n\n", 0, 0);
+//
+//	ft_printf("@moulitest: %#.o %#.0o\n", 0, 0);
+//	printf("@moulitest: %#.o %#.0o\n\n", 0, 0);
+//
+//	ft_printf("@moulitest: %.o %.0o\n", 0, 0);
+//	printf("@moulitest: %.o %.0o", 0, 0);
+
+//	ft_printf("%03.2d\n", -1);
+//	printf("%03.2d\n\n", -1);
+
+//	ft_printf("%03.2d\n", 0);
+//	printf("%03.2d\n\n", 0);
+
+//	ft_printf("%03.2d\n", 1);
+//	printf("%03.2d\n\n", 1);
+//
+//	ft_printf("@moulitest: %.10d\n", -42);
+//	printf("@moulitest: %.10d\n", -42);
+
+	ft_printf("%03.2d\n", -1);
+	printf("%03.2d\n\n", -1);
+
+	ft_printf("% 10.5d\n", 4242);
+	printf("% 10.5d\n\n", 4242);
+
+	ft_printf("%+10.5d\n", 4242);
+	printf("%+10.5d\n\n", 4242);
+
+	ft_printf("%-+10.5d\n", 4242);
+	printf("%-+10.5d\n\n", 4242);
 }

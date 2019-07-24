@@ -39,12 +39,14 @@ char		*handle_zero(char *string, t_arginfo *info, size_t flag_pw)
 	    if (info->flag[0] == '#')
 		    len = flag_pw - len - 2;
 	    else
-            if ((info->flag[2] == '+' && sign == 0) || info->flag[4] == ' ')
+		{
+            if ((info->flag[2] == '+' && sign == 0) || info->flag[4] == ' ' || (info->flag[3] == '0' && info->is_precision && sign == 0))
                 len = flag_pw - len - 1;
-            else if (info->precision && sign == 1)
+            else if (info->precision && sign == 1 && !info->width)
 				len = flag_pw - len + 1;
             else
                 len = flag_pw - len;
+		}
 		zeroes = ft_strnew(len);
 		ft_strset(zeroes, len, '0');
 		string = ft_strjoin_free_all(zeroes, string);
@@ -136,11 +138,17 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
 	char	*arg;
 	
 	arg = get_arg(info, args, len_for_null);
+	if ((ft_search_helper("uxX", info->type) == 1 && info->is_precision && arg[0] == '0') ||
+	(info->type == 'o' && info->flag[0] != '#' && info->is_precision && arg[0] == '0'))
+	{
+		free(arg);
+		arg = ft_strnew(0);
+	}
 	if ((info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type) == 1
 	&& info->flag[1] != '-' && info->width > 0) ||
 	(info->precision > 0 && info->type != 'f' && ft_search_helper("iduUoxX", info->type) == 1))
 	{
-		if (info->precision)
+		if (info->precision && info->flag[3] != '0')
 			arg = handle_zero(arg, info, info->precision);
 		else
 			arg = handle_zero(arg, info, info->width);
@@ -149,7 +157,7 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
 //		arg = handle_octotorp(arg, info);
 	if (info->flag[2] == '+' && ft_search_helper("id", info->type) == 1)
 		arg = handle_plus(arg);
-	if (info->is_precision && ft_search_helper("sdxX", info->type)) // info->precision >= 0 &&  && !info->width
+	if (info->is_precision && ft_search_helper("sd", info->type)) // info->precision >= 0 &&  && !info->width
 		arg = handle_string_precision(arg, info);
 	if (info->flag[4] == ' ' || ( info->flag[1] != '-' && info->width > 0))
 		arg = handle_space(arg, info, len_for_null);
