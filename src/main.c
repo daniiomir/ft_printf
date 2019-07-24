@@ -14,8 +14,7 @@
 #include <limits.h>
 #include "ft_printf.h"
 
-int	main(void)
-{
+int	main(void) {
 //    void    *p = NULL;
 
 //	printf("1\n");
@@ -111,8 +110,8 @@ int	main(void)
 //    ft_printf("%5i\n", -42);
 //    ft_printf("%5%\n");
 //
-    //printf("%   %", "test");
-    //ft_printf("%   %", "test");
+	//printf("%   %", "test");
+	//ft_printf("%   %", "test");
 //    ft_printf("%c\n", '\0');
 //    ft_printf("%s", "abc");
 //    ft_printf("@moulitest: %s", NULL);
@@ -228,12 +227,38 @@ int	main(void)
 //	printf("%f\n", a);
 //	ft_printf("%f\n\n", a);
 
-	printf("%#o\n", 42);
-	ft_printf("%#o\n\n", 42);
+//	printf("%#o\n", 42);
+//	ft_printf("%#o\n\n", 42);
+//	printf("%#o\n", INT_MAX);
+//	ft_printf("%#o\n\n", INT_MAX);
 
-	printf("%#o\n", 0);
-	ft_printf("%#o\n\n", 0);
+//	printf("%#o\n", 0);
+//	ft_printf("%#o\n\n", 0);
 
-	printf("%#o\n", INT_MAX);
-	ft_printf("%#o\n\n", INT_MAX);
+//	printf("{% 03d}\n", 0);
+//	ft_printf("{% 03d}\n\n", 0);
+
+//	printf("%.4d\n", 42);
+//	ft_printf("%.4d\n\n", 42);
+
+//	printf("%.4d\n", -424242);
+//	ft_printf("%.4d\n\n", -424242);
+
+//	printf("%15.4d\n", -42);
+//	ft_printf("%15.4d\n\n", -42);
+
+//	printf("%.10d\n", -42);
+//	ft_printf("%.10d", -42);
+
+//	printf("%.d, %.0d\n", 0, 0);
+//	ft_printf("%.d, %.0d\n", 0, 0);
+
+//	printf("@moulitest: %5.x %5.0x\n", 0, 0);
+//	ft_printf("@moulitest: %5.x %5.0x", 0, 0);
+
+//	ft_printf("%.2s is a string\n", "");
+//	printf("%.2s is a string", "");
+
+	ft_printf("%5.2s is a string\n", "this");
+	printf("%5.2s is a string", "this");
 }

@@ -58,19 +58,26 @@ static char *get_x(va_list *args, t_arginfo *info, size_t base)
 
 static char *get_i(va_list *args, t_arginfo *info)
 {
-	char 	*string;
+	char 			*string;
+	long long int	arg;
 
+	arg = va_arg(*args, long long int);
+	if (arg == 0 && info->is_precision)
+	{
+		string = ft_strnew(0);
+		return (string);
+	}
 	if (info->size[0] == 'h')
 	{
 		if (info->size[1] == 'h')
-			string = ft_itoa((signed char)va_arg(*args, int));
+			string = ft_itoa((signed char)arg);
 		else
-			string = ft_itoa((short int)va_arg(*args, int));
+			string = ft_itoa((short int)arg);
 	}
 	else if (info->size[0] == 'l')
-        string = ft_itoa(va_arg(*args, long long int));
+        string = ft_itoa(arg);
 	else
-		string = ft_itoa(va_arg(*args, int));
+		string = ft_itoa((int)arg);
 	return (string);
 }
 
@@ -154,7 +161,16 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
                     string = ft_strlower(string);
             }
             else if (info->type == 'X')
+			{
                 string = get_x(args, info, 16);
+				if (string[0] != '0')
+				{
+					if (info->flag[3] == '0' && info->flag[1] != '-')
+						string = handle_octotorp(handle_zero(string, info, info->width), info);
+					else
+						string = handle_octotorp(string, info);
+				}
+			}
         }
         else
         {

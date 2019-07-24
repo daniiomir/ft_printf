@@ -25,6 +25,7 @@ typedef struct		s_arginfo
 	char	flag[5];
 	char 	size[2];
 	size_t 	width;
+	size_t 	is_precision;
 	size_t 	precision;
 }					t_arginfo;
 

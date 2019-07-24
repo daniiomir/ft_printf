@@ -18,6 +18,7 @@ static void	ft_clean_info(t_arginfo *info)
 
     i = 0;
 	info->width = 0;
+	info->is_precision = 0;
 	info->precision = 0;
 	info->size[0] = '\0';
 	info->size[1] = '\0';
@@ -104,6 +105,7 @@ size_t	ft_parse_precision(const char *format, t_arginfo *info, size_t i)
 
 	if (format[i + 1] == '.')
 	{
+		info->is_precision = 1;
 		j = i + 1;
 		while (ft_isdigit(format[j + 1]))
 			j++;
