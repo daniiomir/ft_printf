@@ -27,6 +27,14 @@ static void	ft_clean_info(t_arginfo *info)
 	info->type = '\0';
 }
 
+int 	flags_checker(t_arginfo *info)
+{
+	if (info->flag[0] != '\0' || info->flag[1] != '\0' ||
+	info->flag[2] != '\0' || info->flag[3] != '\0' || info->flag[4] != '\0')
+		return (1);
+	return (0);
+}
+
 int		ft_search_helper(const char *string, char search)
 {
 	size_t	j;
@@ -41,18 +49,7 @@ int		ft_search_helper(const char *string, char search)
 	return (0);
 }
 
-size_t	ft_parse(const char *format, t_arginfo *info, size_t i)
-{
-	ft_clean_info(info);
-	i = ft_parse_flags(format, info, i);
-	i = ft_parse_width(format, info, i);
-	i = ft_parse_precision(format, info, i);
-	i = ft_parse_size(format, info, i);
-	i = ft_parse_types(format, info, i);
-	return (i);
-}
-
-size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i)
+static size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i)
 {
     size_t  j;
 
@@ -78,7 +75,7 @@ size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i)
     return (i);
 }
 
-size_t	ft_parse_width(const char *format, t_arginfo *info, size_t i)
+static size_t	ft_parse_width(const char *format, t_arginfo *info, size_t i)
 {
 	size_t	j;
 	size_t  w;
@@ -98,7 +95,7 @@ size_t	ft_parse_width(const char *format, t_arginfo *info, size_t i)
 	return (i);
 }
 
-size_t	ft_parse_precision(const char *format, t_arginfo *info, size_t i)
+static size_t	ft_parse_precision(const char *format, t_arginfo *info, size_t i)
 {
 	size_t	j;
 	char 	*precision;
@@ -118,7 +115,7 @@ size_t	ft_parse_precision(const char *format, t_arginfo *info, size_t i)
 		return (i);
 }
 
-size_t	ft_parse_size(const char *format, t_arginfo *info, size_t i)
+static size_t	ft_parse_size(const char *format, t_arginfo *info, size_t i)
 {
 	if (ft_search_helper("lhLztj", format[i + 1]))
 	{
@@ -134,10 +131,21 @@ size_t	ft_parse_size(const char *format, t_arginfo *info, size_t i)
 		return (i);
 }
 
-size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i)
+static size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i)
 {
 
 	if (ft_search_helper("sciduUobxXpf%", format[i + 1]))
 		info->type = format[i + 1];
 	return (i + 1);
+}
+
+size_t	ft_parse(const char *format, t_arginfo *info, size_t i)
+{
+	ft_clean_info(info);
+	i = ft_parse_flags(format, info, i);
+	i = ft_parse_width(format, info, i);
+	i = ft_parse_precision(format, info, i);
+	i = ft_parse_size(format, info, i);
+	i = ft_parse_types(format, info, i);
+	return (i);
 }

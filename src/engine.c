@@ -148,7 +148,6 @@ char		*ft_engine(const char *format, va_list *args, size_t *len_for_null)
 		else
 		    string = ft_strjoin_free_all(string, tmp);
 		i = ft_next_ending_p(info, format, i);
-//		*len_for_null = 0;
         free(info);
 	}
 	return (string);

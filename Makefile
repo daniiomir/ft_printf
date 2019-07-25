@@ -19,14 +19,16 @@ OBJS = ft_printf.o engine.o parse.o argument.o size.o float.o
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(OBJS)
 	@make -C $(LIBFT)
 	@cp lib/libft.a ./$(NAME)
-	@gcc $(FLAGS) -c -I $(HEADERS) $(SRCS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
-main: re all
+%.o: src/%.c
+	@gcc $(FLAGS) -I $(HEADERS) -c $< -o $@
+
+main: re
 	@gcc -I $(HEADERS) -c src/main.c # $(FLAGS)
 	@gcc main.o -L. -lftprintf -o ft_printf_test
 	./ft_printf_test
@@ -37,6 +39,7 @@ leak: main
 main_clean:
 	@/bin/rm -f main.o
 	@/bin/rm -f ft_printf_test
+
 clean:
 	@make clean -C $(LIBFT)
 	@/bin/rm -f $(OBJS)
