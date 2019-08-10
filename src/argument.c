@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
 static void ft_strset(char *string, size_t len, char c)
 {
 	size_t	i;
@@ -36,17 +37,18 @@ char		*handle_zero(char *string, t_arginfo *info, size_t flag_pw)
 			string[0] = '0';
 			sign++;
 		}
-	    if (info->flag[0] == '#')
-		    len = flag_pw - len - 2;
-	    else
-		{
-            if ((info->flag[2] == '+' && sign == 0) || info->flag[4] == ' ' || (info->flag[3] == '0' && info->is_precision && sign == 0))
-                len = flag_pw - len - 1;
-            else if ((info->precision && sign == 1 && !info->width) || (info->precision && sign == 1 && flags_checker(info) == 0))
-				len = flag_pw - len + 1;
-            else
-                len = flag_pw - len;
-		}
+        if (info->flag[0] == '#' && info->precision && info->type == 'o')
+            len = flag_pw - ft_strlen(string);
+        else if (info->flag[0] == '#' && info->precision)
+            len = flag_pw - len;
+        else if (info->flag[0] == '#')
+            len = flag_pw - len - 2;
+	    else if ((info->flag[2] == '+' && sign == 0) || info->flag[4] == ' ' || (info->flag[3] == '0' && info->is_precision && sign == 0))
+            len = flag_pw - len - 1;
+        else if ((info->precision && sign == 1 && !info->width) || (info->precision && sign == 1 && flags_checker(info) == 0))
+            len = flag_pw - len + 1;
+        else
+            len = flag_pw - len;
 		zeroes = ft_strnew(len);
 		ft_strset(zeroes, len, '0');
 		string = ft_strjoin_free_all(zeroes, string);
@@ -140,7 +142,7 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
 	
 	arg = get_arg(info, args, len_for_null);
 //	if (flags_checker(info) && info->width && info->is_precision && info->type != '\0' )
-	if ((ft_search_helper("uxX", info->type) == 1 && info->is_precision && arg[0] == '0') ||
+	if ((ft_search_helper("uxX", info->type) == 1 && info->is_precision && arg[0] == '0' && info->precision == 0) ||
 	(info->type == 'o' && info->flag[0] != '#' && info->is_precision && arg[0] == '0'))
 	{
 		free(arg);
@@ -148,7 +150,7 @@ char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null)
 	}
 	if ((info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type) == 1
 	&& info->flag[1] != '-' && info->width > 0) ||
-	(info->precision > 0 && info->type != 'f' && ft_search_helper("iduUoxX", info->type) == 1))
+	(info->precision > 0 && info->type != 'f' && ft_search_helper("iduUoxXp", info->type) == 1 && info->flag[0] != '#'))
 	{
 		if (info->precision && info->flag[3] != '0')
 			arg = handle_zero(arg, info, info->precision);

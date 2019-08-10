@@ -306,8 +306,8 @@ int	main(void) {
 //	ft_printf("%.4d\n", -424242);
 //	printf("%.4d\n\n", -424242);
 //
-	ft_printf("%15.4d\n", 42);
-	printf("%15.4d\n\n", 42);
+//	ft_printf("%15.4d\n", 42);
+//	printf("%15.4d\n\n", 42);
 
 //	ft_printf("%15.4d\n", 424242);
 //	printf("%15.4d\n\n", 424242);
@@ -315,8 +315,8 @@ int	main(void) {
 //	ft_printf("%8.4d\n", 424242424);
 //	printf("%8.4d\n\n", 424242424);
 
-	ft_printf("%15.4d\n", -42);
-	printf("%15.4d\n\n", -42);
+//	ft_printf("%15.4d\n", -42);
+//	printf("%15.4d\n\n", -42);
 
 //	ft_printf("%15.4d\n", -424242);
 //	printf("%15.4d\n\n", -424242);
@@ -330,8 +330,8 @@ int	main(void) {
 //	ft_printf("%4.15d\n", 424242);
 //	printf("%4.15d\n\n", 424242);
 //
-	ft_printf("%4.8d\n", 424242424);
-	printf("%4.8d\n\n", 424242424);
+//	ft_printf("%4.8d\n", 424242424);
+//	printf("%4.8d\n\n", 424242424);
 
 //	ft_printf("%4.15d\n", -42);
 //	printf("%4.15d\n\n", -42);
@@ -386,4 +386,22 @@ int	main(void) {
 //
 //	ft_printf("%.u, %.0u\n", 0, 0);
 //	printf("%.u, %.0u\n\n", 0, 0);
+
+//    ft_printf("%.0p, %.p\n", 0, 0);
+//    printf("%.0p, %.p\n\n", 0, 0);
+//
+//    ft_printf("{%5p}\n", 0);
+//    printf("{%5p}\n\n", 0);
+
+//    ft_printf("%2.9p\n", 1234);
+//    printf("%2.9p", 1234);
+
+//    ft_printf("%.5p\n", 0);
+//    printf("%.5p", 0);
+
+    ft_printf("{%#.5x}\n", 1);
+    printf("{%#.5x}\n\n", 1);
+
+    ft_printf("%#.4o\n", 1);
+    printf("%#.4o\n\n", 1);
 }

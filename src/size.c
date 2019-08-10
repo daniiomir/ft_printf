@@ -148,7 +148,12 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
         if (info->flag[0] == '#')
         {
             if (info->type == 'o')
-                string = handle_octotorp(get_x(args, info, 8), info);
+            {
+                if (info->precision)
+                    string = handle_zero(handle_octotorp(get_x(args, info, 8), info), info, info->precision);
+                else
+                    string = handle_octotorp(get_x(args, info, 8), info);
+            }
             else if (info->type == 'x')
             {
                 string = get_x(args, info, 16);
@@ -156,6 +161,8 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
                 {
                     if (info->flag[3] == '0' && info->flag[1] != '-')
                         string = handle_octotorp(handle_zero(ft_strlower(string), info, info->width), info);
+                    else if (info->precision > 0)
+                        string = handle_octotorp(handle_zero(ft_strlower(string), info, info->precision), info);
                     else
                         string = handle_octotorp(ft_strlower(string), info);
                 }
@@ -185,6 +192,14 @@ char		*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null)
         }
     }
     else if (info->type == 'p')
-        string = ft_strjoin_free2("0x", ft_strlower(ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16)));
+    {
+        string = ft_itoa_base((unsigned long long int)va_arg(*args, void *), 16);
+        if (string[0] == '0' && info->is_precision)
+            string = ft_strjoin_free2("0x", handle_zero(ft_strnew(0), info, info->precision));
+        else if (info->precision > 0)
+            string = ft_strjoin_free2("0x", ft_strlower(handle_zero(string, info, info->precision)));
+        else
+            string = ft_strlower(ft_strjoin_free2("0x", string));
+    }
     return (string);
 }
