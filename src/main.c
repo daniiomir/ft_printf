@@ -399,9 +399,32 @@ int	main(void) {
 //    ft_printf("%.5p\n", 0);
 //    printf("%.5p", 0);
 
-    ft_printf("{%#.5x}\n", 1);
-    printf("{%#.5x}\n\n", 1);
+//    ft_printf("{%#.5x}\n", 1);
+//    printf("{%#.5x}\n\n", 1);
+//
+//    ft_printf("%#.4o\n", 1);
+//    printf("%#.4o\n\n", 1);
 
-    ft_printf("%#.4o\n", 1);
-    printf("%#.4o\n\n", 1);
+
+
+// ******************* FINAL 5 BUGS ******************
+
+//    ft_printf("%s %d %p %% %x\n", "bonjour ", 42, &free, 42);
+//    printf("%s %d %p %% %x\n\n", "bonjour ", 42, &free, 42);
+//
+//    int *c = malloc(1);
+//    ft_printf("%s%d%p %%%i%o%u%x%X %c\n","bonjour", 42, &c, 42, 42, 42, 42, 42, 'c');
+//    printf("%s%d%p %%%i%o%u%x%X %c\n\n","bonjour", 42, &c, 42, 42, 42, 42, 42, 'c');
+//
+//    ft_printf("%%%%%%%%%%\n");
+//    printf("%%%%%%%%%%\n\n");
+
+    ft_printf("aa%%bb\n");
+    printf("aa%%bb\n\n");
+
+    ft_printf("a%ib%ic%id\n", 1, -2, 3);
+    printf("a%ib%ic%id", 1, -2, 3);
+//
+//    ft_printf("{%3c}\n", 0);
+//    printf("{%3c}", 0);
 }
