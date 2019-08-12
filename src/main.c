@@ -418,13 +418,25 @@ int	main(void) {
 //
 //    ft_printf("%%%%%%%%%%\n");
 //    printf("%%%%%%%%%%\n\n");
-
-    ft_printf("aa%%bb\n");
-    printf("aa%%bb\n\n");
-
-    ft_printf("a%ib%ic%id\n", 1, -2, 3);
-    printf("a%ib%ic%id", 1, -2, 3);
 //
-//    ft_printf("{%3c}\n", 0);
-//    printf("{%3c}", 0);
+//    ft_printf("aa%%bb\n");
+//    printf("aa%%bb\n\n");
+//
+//    ft_printf("a%ib%ic%id\n", 1, -2, 3);
+//    printf("a%ib%ic%id", 1, -2, 3);
+
+
+// ****************** CASES WITH \0 *****************
+
+    ft_printf("{%3c}\n", 0);
+    printf("{%3c}\n\n", 0);
+
+    ft_printf("%2c\n", 0);
+    printf("%2c\n\n", 0);
+
+    ft_printf("null %c and text\n", 0);
+    printf("null %c and text\n\n", 0);
+
+    ft_printf("@moulitest: %c\n", 0);
+    printf("@moulitest: %c\n", 0);
 }

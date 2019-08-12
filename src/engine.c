@@ -67,23 +67,23 @@ char        *ft_strjoin_null(char *s1, char *s2, size_t *len_for_null)
     s2_len = ft_strlen(s2);
 
     if (s2[0] == '\0')
-        for_malloc = ft_strnew(s1_len + 2);
+        for_malloc = ft_strnew(s1_len);
     else
     {
         if (*len_for_null > 0)
-            for_malloc = ft_strnew(s1_len + s2_len + 1);
+            for_malloc = ft_strnew(s1_len + s2_len);
         else
             return (ft_strjoin_free_all(s1, s2));
     }
-    while (i < s1_len + 1)
-        for_malloc[h++] = s1[i++];
-    if (s2[0] == '\0')
-        for_malloc[h++] = '\0';
-    else
-    {
-        while (j < s2_len + 1)
-            for_malloc[h++] = s2[j++];
-    }
+	while (i < s1_len)
+		for_malloc[h++] = s1[i++];
+	for_malloc[h++] = '\0';
+//    if (s2[0] == '\0')
+//        for_malloc[h] = '\0';
+//    else
+	while (j <= s2_len)
+		for_malloc[h++] = s2[j++];
+//	for_malloc[h] = '\0';
     *len_for_null = s2_len + 1;
     free(s1);
     free(s2);
@@ -116,15 +116,7 @@ char		*ft_engine(const char *format, va_list *args, size_t *len_for_null)
 		{
 			i = ft_parse(format, info, i);
 			arg = handle_flags(info, args, len_for_null);
-			if (*len_for_null > 0)
-            {
-			    if (info->width == 0)
-			        string = ft_strjoin_null(string, arg, len_for_null);
-			    else
-                    string = ft_strjoin_null(arg, string, len_for_null);
-            }
-			else
-			    string = ft_strjoin_free_all(string, arg);
+			string = ft_strjoin_free_all(string, arg);
 		}
 		if (info->type == '%')
 		    ft_strlen(format) == 2 ? (j = ft_next_ending(format, i) - 1) : (j = 1);
@@ -137,7 +129,7 @@ char		*ft_engine(const char *format, va_list *args, size_t *len_for_null)
             tmp = ft_strsub(format, i + 1, j + 2);
 		else
             tmp = ft_strsub(format, i + 1, j);
-		if (*len_for_null > 0)
+		if (*len_for_null)
             string = ft_strjoin_null(string, tmp, len_for_null);
 		else
 		    string = ft_strjoin_free_all(string, tmp);
