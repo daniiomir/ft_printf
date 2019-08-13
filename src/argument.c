@@ -12,91 +12,6 @@
 
 #include "ft_printf.h"
 
-static char		*zeroes_to_string(char *string, size_t sign, size_t len)
-{
-	char	*zeroes;
-
-	zeroes = ft_strnew(len);
-	ft_strset(zeroes, len, '0');
-	string = ft_strjoin_free_all(zeroes, string);
-	if (sign == 1)
-		string[0] = '-';
-	return (string);
-}
-
-static size_t	len_for_zeroes(char *string, t_arginfo *info,
-	size_t flag_pw, size_t sign)
-{
-	size_t	len;
-
-	len = ft_strlen(string);
-	if (info->flag[0] == '#' && info->precision && info->type == 'o')
-		len = flag_pw - ft_strlen(string);
-	else if (info->flag[0] == '#' && info->precision)
-		len = flag_pw - len;
-	else if (info->flag[0] == '#')
-		len = flag_pw - len - 2;
-	else if ((info->flag[2] == '+' && sign == 0) || info->flag[4] == ' '
-		|| (info->flag[3] == '0' && info->is_precision && sign == 0))
-		len = flag_pw - len - 1;
-	else if ((info->precision && sign == 1 && !info->width) ||
-		(info->precision && sign == 1 && flags_checker(info) == 0))
-		len = flag_pw - len + 1;
-	else
-		len = flag_pw - len;
-	return (len);
-}
-
-char			*handle_zero(char *string, t_arginfo *info, size_t flag_pw)
-{
-	size_t	len;
-	size_t	sign;
-
-	sign = 0;
-	len = ft_strlen(string);
-	if (len < flag_pw)
-	{
-		if (string[0] == '-')
-		{
-			string[0] = '0';
-			sign++;
-		}
-		len = len_for_zeroes(string, info, flag_pw, sign);
-		string = zeroes_to_string(string, sign, len);
-	}
-	return (string);
-}
-
-char			*handle_space(char *string, t_arginfo *info,
-	size_t *len_for_null)
-{
-	size_t	len;
-	char	*spaces;
-
-	len = ft_strlen(string);
-	if (len < info->width)
-	{
-		len = info->width - len;
-		spaces = ft_strnew(len);
-		ft_strset(spaces, len, ' ');
-		if (*len_for_null > 0)
-			string = ft_strjoin_null(spaces, string, len_for_null);
-		else
-			string = ft_strjoin_free_all(spaces, string);
-	}
-	if (info->width == 0 && string[0] != '-' && string[0] != '+'
-		&& ft_search_helper("id", info->type))
-		string = ft_strjoin_free2(" ", string);
-	return (string);
-}
-
-char			*handle_plus(char *string)
-{
-	if (string[0] != '-')
-		string = ft_strjoin_free2("+", string);
-	return (string);
-}
-
 char			*handle_octotorp(char *string, t_arginfo *info)
 {
 	if (info->type == 'o')
@@ -148,19 +63,6 @@ char			*handle_minus(char *string, t_arginfo *info)
 		string = ft_strjoin_free_all(string, spaces);
 	}
 	return (string);
-}
-
-static size_t	free_arg(t_arginfo *info, char *arg)
-{
-	if ((ft_search_helper("uxX", info->type) && info->is_precision
-		&& arg[0] == '0' && !info->precision) || (info->type == 'o'
-		&& info->flag[0] != '#'
-		&& info->is_precision && arg[0] == '0'))
-	{
-		free(arg);
-		return (1);
-	}
-	return (0);
 }
 
 char			*handle_flags(t_arginfo *info, va_list *args,

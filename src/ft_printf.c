@@ -23,7 +23,10 @@ int		ft_printf(const char *format, ...)
 	i = 0;
 	len_for_null = 0;
 	va_start(args, format);
-	string = ft_engine(format, &args, &len_for_null, &i);
+	if (ft_strchr(format, '%') == NULL)
+		string = ft_strdup(format);
+	else
+		string = ft_engine(format, &args, &len_for_null, &i);
 	len = ft_strlen(string) + len_for_null;
 	write(1, string, len);
 	free(string);

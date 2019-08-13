@@ -48,6 +48,22 @@ char				*handle_minus(char *string, t_arginfo *info);
 char				*handle_string_precision(char *string, t_arginfo *info);
 char				*get_arg(t_arginfo *info, va_list *args,
 	size_t *len_for_null);
+char				*get_u(va_list *args, t_arginfo *info);
+char				*get_x(va_list *args, t_arginfo *info, size_t base);
+char				*get_i(va_list *args, t_arginfo *info);
+char				*get_c(va_list *args, t_arginfo *info, size_t *len_for_null);
+char				*get_s(va_list *args);
 char				*type_f(va_list *args, t_arginfo *flags);
+
+
+
+
+char				*zeroes_to_string(char *string, size_t sign, size_t len);
+size_t				len_for_zeroes(char *string, t_arginfo *info,
+	size_t flag_pw, size_t sign);
+size_t				free_arg(t_arginfo *info, char *arg);
+void				ft_clean_info(t_arginfo *info);
+int					flags_checker(t_arginfo *info);
+size_t				ft_parse_flags(const char *format, t_arginfo *info, size_t i);
 
 #endif

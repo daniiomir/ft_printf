@@ -28,51 +28,6 @@ static size_t	ft_next_ending(const char *format, size_t i)
 	return (j);
 }
 
-static char		*strjoin_null_helper(char *for_malloc, char *s1,
-	char *s2, size_t *len_for_null)
-{
-	size_t	s1_len;
-	size_t	s2_len;
-
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	if (s2[0] == '\0')
-		for_malloc = ft_strnew(s1_len);
-	else
-	{
-		if (*len_for_null)
-			for_malloc = ft_strnew(s1_len + s2_len);
-		else
-			return (ft_strjoin_free_all(s1, s2));
-	}
-	return (for_malloc);
-}
-
-char			*ft_strjoin_null(char *s1, char *s2, size_t *len_for_null)
-{
-	size_t	i;
-	size_t	j;
-	size_t	h;
-	char	*for_malloc;
-	size_t	s2_len;
-
-	i = 0;
-	j = 0;
-	h = 0;
-	s2_len = ft_strlen(s2);
-	for_malloc = NULL;
-	for_malloc = strjoin_null_helper(for_malloc, s1, s2, len_for_null);
-	while (i < ft_strlen(s1))
-		for_malloc[h++] = s1[i++];
-	for_malloc[h++] = '\0';
-	while (j <= s2_len)
-		for_malloc[h++] = s2[j++];
-	*len_for_null = s2_len + 1;
-	free(s1);
-	free(s2);
-	return (for_malloc);
-}
-
 static size_t	percent_handling(const char *format, t_arginfo *info,
 	size_t i, size_t j)
 {
@@ -106,8 +61,6 @@ static char		*next_part_string(const char *format, size_t i, size_t j)
 
 static size_t	start(const char *format, char **string, size_t i)
 {
-	if (ft_strchr(format, '%') == NULL)
-		*string = ft_strdup(format);
 	*string = ft_strnew(0);
 	if (format[0] != '%')
 	{
