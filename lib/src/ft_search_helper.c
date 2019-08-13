@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_search_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/16 17:32:29 by swarner           #+#    #+#             */
-/*   Updated: 2019/05/16 17:32:30 by swarner          ###   ########.fr       */
+/*   Created: 2019/08/13 16:52:28 by swarner           #+#    #+#             */
+/*   Updated: 2019/08/13 16:52:33 by swarner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int		ft_printf(const char *format, ...)
+int		ft_search_helper(const char *string, char search)
 {
-	char	*string;
-	va_list	args;
-	size_t	len;
-	size_t	len_for_null;
-	size_t	i;
+	size_t	j;
 
-	i = 0;
-	len_for_null = 0;
-	va_start(args, format);
-	string = ft_engine(format, &args, &len_for_null, &i);
-	len = ft_strlen(string) + len_for_null;
-	write(1, string, len);
-	free(string);
-	va_end(args);
-	return (len);
+	j = 0;
+	while (string[j])
+	{
+		if (string[j] == search)
+			return (1);
+		j++;
+	}
+	return (0);
 }

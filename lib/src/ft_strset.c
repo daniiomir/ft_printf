@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/16 17:32:29 by swarner           #+#    #+#             */
-/*   Updated: 2019/05/16 17:32:30 by swarner          ###   ########.fr       */
+/*   Created: 2019/08/13 16:57:16 by swarner           #+#    #+#             */
+/*   Updated: 2019/08/13 16:57:21 by swarner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int		ft_printf(const char *format, ...)
+void	ft_strset(char *string, size_t len, char c)
 {
-	char	*string;
-	va_list	args;
-	size_t	len;
-	size_t	len_for_null;
 	size_t	i;
 
 	i = 0;
-	len_for_null = 0;
-	va_start(args, format);
-	string = ft_engine(format, &args, &len_for_null, &i);
-	len = ft_strlen(string) + len_for_null;
-	write(1, string, len);
-	free(string);
-	va_end(args);
-	return (len);
+	while (i != len)
+		string[i++] = c;
 }

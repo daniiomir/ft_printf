@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_free2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: swarner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/16 17:32:29 by swarner           #+#    #+#             */
-/*   Updated: 2019/05/16 17:32:30 by swarner          ###   ########.fr       */
+/*   Created: 2019/08/13 16:32:52 by swarner           #+#    #+#             */
+/*   Updated: 2019/08/13 16:32:56 by swarner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int		ft_printf(const char *format, ...)
+char	*ft_strjoin_free2(char *s1, char *s2)
 {
-	char	*string;
-	va_list	args;
-	size_t	len;
-	size_t	len_for_null;
-	size_t	i;
+	char	*result;
 
-	i = 0;
-	len_for_null = 0;
-	va_start(args, format);
-	string = ft_engine(format, &args, &len_for_null, &i);
-	len = ft_strlen(string) + len_for_null;
-	write(1, string, len);
-	free(string);
-	va_end(args);
-	return (len);
+	if (!s2)
+		return (s1);
+	result = ft_strjoin(s1, s2);
+	free(s2);
+	return (result);
 }

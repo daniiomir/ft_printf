@@ -12,7 +12,8 @@
 
 #include "libft.h"
 
-static int	ft_itoa_helper(unsigned long long int tmp, int base, unsigned long long int size)
+static int	ft_itoa_helper(unsigned long long int tmp, int base,
+	unsigned long long int size)
 {
 	while (tmp /= base)
 		size++;
@@ -22,10 +23,10 @@ static int	ft_itoa_helper(unsigned long long int tmp, int base, unsigned long lo
 
 char		*ft_itoa_base(unsigned long long int value, int base)
 {
-	char	                *str;
-	char	                *tab;
-    unsigned long long int	size;
-    unsigned long long int	tmp;
+	char					*str;
+	char					*tab;
+	unsigned long long int	size;
+	unsigned long long int	tmp;
 
 	size = 0;
 	tab = "0123456789ABCDEF";

@@ -428,15 +428,20 @@ int	main(void) {
 
 // ****************** CASES WITH \0 *****************
 
-    ft_printf("{%3c}\n", 0);
-    printf("{%3c}\n\n", 0);
+//    ft_printf("{%3c}\n", 0);
+//    printf("{%3c}\n\n", 0);
+//
+//    ft_printf("%2c\n", 0);
+//    printf("%2c\n\n", 0);
+//
+//    ft_printf("null %c and text\n", 0);
+//    printf("null %c and text\n\n", 0);
+//
+//    ft_printf("@moulitest: %c\n", 0);
+//    printf("@moulitest: %c\n", 0);
 
-    ft_printf("%2c\n", 0);
-    printf("%2c\n\n", 0);
+//	ft_printf("%.2x", 5427);
+//	printf("%.2x", 5427);
 
-    ft_printf("null %c and text\n", 0);
-    printf("null %c and text\n\n", 0);
-
-    ft_printf("@moulitest: %c\n", 0);
-    printf("@moulitest: %c\n", 0);
+	ft_printf("this is a %s", "string");
 }

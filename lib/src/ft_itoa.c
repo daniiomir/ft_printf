@@ -17,7 +17,7 @@ char	*ft_itoa(long long int n)
 	long long int		size;
 	long long int		negative;
 	long long int		tmp;
-	char	            *array;
+	char				*array;
 
 	tmp = n;
 	size = 1;

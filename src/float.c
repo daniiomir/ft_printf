@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   float.c                                            :+:      :+:    :+:   */
@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-double	ft_calc_modul(long double nb, size_t *size)
+static double	ft_calc_modul(long double nb, size_t *size)
 {
 	long double	modul;
 
@@ -22,21 +22,22 @@ double	ft_calc_modul(long double nb, size_t *size)
 	return (modul);
 }
 
-void	ft_handle_integer(long double *nb, char **str, size_t *i, long double modul)
+static void		ft_handle_integer(long double *nb,
+	char **str, size_t *i, long double modul)
 {
 	char	*s;
 
 	s = *str;
 	while ((size_t)*nb != 0)
 	{
-		
 		s[(*i)++] = (char)((*nb / modul) + 48);
 		*nb -= (size_t)(*nb / modul) * modul;
 		modul /= 10;
 	}
 }
 
-void	ft_handle_decimals(char **str, size_t *i, long double nb, size_t precision)
+static void		ft_handle_decimals(char **str, size_t *i,
+	long double nb, size_t precision)
 {
 	size_t	j;
 	size_t	tmp;
@@ -51,25 +52,17 @@ void	ft_handle_decimals(char **str, size_t *i, long double nb, size_t precision)
 	s[(*i)++] = '.';
 	while (j++ < precision)
 	{
-			prev = tmp;
-			tmp = ((size_t)nb != 9) ? (size_t)(nb + 0.001) : (size_t)nb;
-			s[(*i)++] = (char)(tmp + 48);
-			nb = (nb - tmp) * 10;
-		
+		prev = tmp;
+		tmp = ((size_t)nb != 9) ? (size_t)(nb + 0.001) : (size_t)nb;
+		s[(*i)++] = (char)(tmp + 48);
+		nb = (nb - tmp) * 10;
 	}
 	if (tmp > 5)
 		s[(*i) - 2] = (char)((prev + 1) + 48);
 }
 
-//int		ft_handle_inf(char **s)
-//{
-//	if (!(*s = malloc(sizeof(char) * 4)))
-//		return (0);
-//	*s = "inf";
-//	return (3);
-//}
-
-int		ft_put_float_to_string(long double nb, char **s, size_t precision)
+static size_t	ft_put_float_to_string(long double nb,
+	char **s, size_t precision)
 {
 	size_t		i;
 	size_t		size;
@@ -95,15 +88,17 @@ int		ft_put_float_to_string(long double nb, char **s, size_t precision)
 	return (size);
 }
 
-char	*type_f(va_list *args, t_arginfo *info)
+char			*type_f(va_list *args, t_arginfo *info)
 {
 	char	*nb;
-	
+
 	if (info->precision == 0)
 		info->precision = 6;
 	if (info->size[0] == 'L')
-		ft_put_float_to_string(va_arg(*args, long double), &nb, info->precision);
+		ft_put_float_to_string(va_arg(*args, long double),
+			&nb, info->precision);
 	else
-		ft_put_float_to_string(va_arg(*args, double), &nb, info->precision);
+		ft_put_float_to_string(va_arg(*args, double),
+			&nb, info->precision);
 	return (nb);
 }

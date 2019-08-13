@@ -21,36 +21,33 @@ typedef struct		s_arginfo
 {
 	char	type;
 	char	flag[5];
-	char 	size[2];
-	size_t 	is_precision;
-	size_t 	width;
-	size_t 	precision;
+	char	size[2];
+	size_t	is_precision;
+	size_t	width;
+	size_t	precision;
 }					t_arginfo;
 
-char    *ft_strjoin_null(char *s1, char *s2, size_t *len_for_null);
-char	*ft_strjoin_free2(char *s1, char *s2);
-char	*ft_strjoin_free_all(char *s1, char *s2);
-int		ft_search_helper(const char *string, char search);
-int 	flags_checker(t_arginfo *info);
+char				*ft_strjoin_null(char *s1, char *s2, size_t *len_for_null);
+int					flags_checker(t_arginfo *info);
 
-int		ft_printf(const char *format, ...);
-char	*ft_engine(const char *format, va_list *args, size_t *len_for_null);
+int					ft_printf(const char *format, ...);
+char				*ft_engine(const char *format, va_list *args,
+	size_t *len_for_null, size_t *i);
 
-size_t	ft_parse(const char *format, t_arginfo *info, size_t i);
-//size_t	ft_parse_flags(const char *format, t_arginfo *info, size_t i);
-//size_t	ft_parse_width(const char *format, t_arginfo *info, size_t i);
-//size_t	ft_parse_precision(const char *format, t_arginfo *info, size_t i);
-//size_t	ft_parse_size(const char *format, t_arginfo *info, size_t i);
-//size_t	ft_parse_types(const char *format, t_arginfo *info, size_t i);
+size_t				ft_parse(const char *format, t_arginfo *info, size_t i);
 
-char	*handle_flags(t_arginfo *info, va_list *args, size_t *len_for_null);
-char	*handle_zero(char *string, t_arginfo *info, size_t flag_pw);
-char	*handle_space(char *string, t_arginfo *info, size_t *len_for_null);
-char	*handle_plus(char *string);
-char	*handle_octotorp(char *string, t_arginfo *info);
-char	*handle_minus(char *string, t_arginfo *info);
+char				*handle_flags(t_arginfo *info, va_list *args,
+	size_t *len_for_null);
+char				*handle_zero(char *string, t_arginfo *info, size_t flag_pw);
+char				*handle_space(char *string, t_arginfo *info,
+	size_t *len_for_null);
+char				*handle_plus(char *string);
+char				*handle_octotorp(char *string, t_arginfo *info);
+char				*handle_minus(char *string, t_arginfo *info);
 
-char	*handle_string_precision(char *string, t_arginfo *info);
-char	*get_arg(t_arginfo *info, va_list *args, size_t *len_for_null);
-char	*type_f(va_list *args, t_arginfo *flags);
+char				*handle_string_precision(char *string, t_arginfo *info);
+char				*get_arg(t_arginfo *info, va_list *args,
+	size_t *len_for_null);
+char				*type_f(va_list *args, t_arginfo *flags);
+
 #endif
