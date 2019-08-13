@@ -14,8 +14,8 @@ NAME = libftprintf.a
 LIBFT = lib/
 FLAGS = -Wall -Wextra -Werror -g
 HEADERS = ./includes
-SRCS = src/ft_printf.c src/engine.c src/parse.c src/argument.c src/size.c src/float.c src/types.c src/tools.c src/tools2.c
-OBJS = ft_printf.o engine.o parse.o argument.o size.o float.o types.o tools.o tools2.o
+SRCS = src/ft_printf.c src/engine.c src/parse.c src/argument.c src/size.c src/float.c src/types.c src/tools.c src/tools2.c src/argument2.c
+OBJS = ft_printf.o engine.o parse.o argument.o size.o float.o types.o tools.o tools2.o argument2.o
 
 all: $(NAME)
 
