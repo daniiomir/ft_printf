@@ -78,9 +78,6 @@ char	*get_i(va_list *args, t_arginfo *info)
 		string = ft_itoa(arg);
 	else
 		string = ft_itoa((int)arg);
-	if (info->type == 'd' && info->is_precision
-		&& info->width && info->flag[3] != '0' && flags_checker(info))
-		string = ft_strjoin_free2("0", string);
 	return (string);
 }
 

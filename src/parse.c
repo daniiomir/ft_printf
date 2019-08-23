@@ -49,6 +49,8 @@ static size_t	ft_parse_precision(const char *format, t_arginfo *info,
 			j++;
 		precision = ft_strsub(format, i + 2, j - i);
 		info->precision = ft_atoi(precision);
+		if (info->precision > 2147483647)
+			info->precision = 6;
 		free(precision);
 		return (j);
 	}

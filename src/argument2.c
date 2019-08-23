@@ -19,7 +19,7 @@ char			*handle_zero(char *string, t_arginfo *info, size_t flag_pw)
 
 	sign = 0;
 	len = ft_strlen(string);
-	if (len < flag_pw)
+	if (len < flag_pw || (string[0] == '-' && len == flag_pw))
 	{
 		if (string[0] == '-')
 		{
@@ -32,6 +32,26 @@ char			*handle_zero(char *string, t_arginfo *info, size_t flag_pw)
 	return (string);
 }
 
+static char		*one_space(t_arginfo *info, char *string)
+{
+	char	*s;
+
+	if ((info->width && info->flag[4] == ' ' && !info->flag[2]
+		&& !ft_search_helper("id", info->type) && !info->flag[3])
+	|| (info->width && info->flag[4] == ' '
+		&& !info->flag[2] && string[0] != '-')
+	|| (info->width && info->flag[4] == ' '
+		&& info->flag[3] == '0' && string[0] == '0')
+	|| (info->precision && info->flag[4] == ' ' && info->width
+		&& info->flag[2] != '+' && string[0] != '-')
+	|| (info->width == 0 && string[0] != '-' && string[0] != '+'
+		&& ft_search_helper("idf", info->type)))
+		s = ft_strjoin_free2(" ", string);
+	else
+		return (string);
+	return (s);
+}
+
 char			*handle_space(char *string, t_arginfo *info,
 	size_t *len_for_null)
 {
@@ -39,7 +59,7 @@ char			*handle_space(char *string, t_arginfo *info,
 	char	*spaces;
 
 	len = ft_strlen(string);
-	if (len < info->width)
+	if (info->width > len && info->width < 2147483647 && info->flag[1] != '-')
 	{
 		len = info->width - len;
 		spaces = ft_strnew(len);
@@ -49,9 +69,8 @@ char			*handle_space(char *string, t_arginfo *info,
 		else
 			string = ft_strjoin_free_all(spaces, string);
 	}
-	if (info->width == 0 && string[0] != '-' && string[0] != '+'
-		&& ft_search_helper("id", info->type))
-		string = ft_strjoin_free2(" ", string);
+	else
+		string = one_space(info, string);
 	return (string);
 }
 

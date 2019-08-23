@@ -74,21 +74,20 @@ char			*handle_flags(t_arginfo *info, va_list *args,
 	if (free_arg(info, arg))
 		arg = ft_strnew(0);
 	if ((info->flag[3] == '0' && ft_search_helper("iduUoxX", info->type)
-	&& info->flag[1] != '-' && info->width > 0) ||
-	(info->precision > 0 && info->type != 'f'
-	&& ft_search_helper("iduUoxXp", info->type)
-	&& info->flag[0] != '#'))
+	&& info->flag[1] != '-' && info->width && !info->is_precision) ||
+	(info->precision && ft_search_helper("iduUopxX", info->type)))
 	{
-		if (info->precision && info->flag[3] != '0')
+		if (info->precision)
 			arg = handle_zero(arg, info, info->precision);
 		else
 			arg = handle_zero(arg, info, info->width);
 	}
-	if (info->flag[2] == '+' && ft_search_helper("id", info->type) == 1)
+	if (info->flag[2] == '+' && ft_search_helper("idf", info->type) == 1)
 		arg = handle_plus(arg);
 	if (info->is_precision && ft_search_helper("sd", info->type))
 		arg = handle_string_precision(arg, info);
-	if (info->flag[4] == ' ' || (info->flag[1] != '-' && info->width > 0))
+	if ((info->flag[4] == ' ' && info->flag[2] != '+')
+	|| (info->flag[1] != '-' && info->width))
 		arg = handle_space(arg, info, len_for_null);
 	if (info->flag[1] == '-')
 		arg = handle_minus(arg, info);

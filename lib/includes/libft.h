@@ -35,7 +35,7 @@ typedef struct		s_double_linked_list
 
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
-int					ft_atoi(const char *str);
+ssize_t				ft_atoi(const char *str);
 char				*ft_strdup(const char *s1);
 size_t				ft_strlen(const char *s);
 char				*ft_strcpy(char *dst, const char *src);

@@ -59,5 +59,6 @@ void				ft_clean_info(t_arginfo *info);
 int					flags_checker(t_arginfo *info);
 size_t				ft_parse_flags(const char *format,
 		t_arginfo *info, size_t i);
+double				ft_calc_modul(long double nb, size_t *size);
 
 #endif

@@ -13,6 +13,8 @@
 #include <stdio.h>
 #include <limits.h>
 #include "ft_printf.h"
+#include <float.h>
+#define TEST "%23.u|%-23.u|%023.u\n", UINT_MAX, UINT_MAX, UINT_MAX
 
 int	main(void) {
 //    void    *p = NULL;
@@ -442,35 +444,96 @@ int	main(void) {
 
 //	ft_printf("%.2x", 5427);
 //	printf("%.2x", 5427);
-	ft_printf("\n");
-	ft_printf("%%\n");
-	ft_printf("%d\n", 42);
-	ft_printf("%d%d\n", 42, 41);
-	ft_printf("%d%d%d\n", 42, 43, 44);
-	ft_printf("%ld\n", 2147483647);
-	ft_printf("%lld\n", 9223372036854775807);
-	ft_printf("%x\n", 505);
-	ft_printf("%X\n", 505);
-	ft_printf("%p\n", &ft_printf);
-	ft_printf("%20.15d\n", 54321);
-	ft_printf("%-10d\n", 3);
-	ft_printf("% d\n", 3);
-	ft_printf("%+d\n", 3);
-	ft_printf("%010d\n", 1);
-	ft_printf("%hhd\n", 0);
-	ft_printf("%jd\n", 9223372036854775807);
-	ft_printf("%zd\n", 4294967295);
-	ft_printf("%\n");
-	ft_printf("%U\n", 4294967295);
-	ft_printf("%u\n", 4294967295);
-	ft_printf("%o\n", 40);
-	ft_printf("%%#08x\n", 42);
-	ft_printf("%x\n", 1000);
-	ft_printf("%#X\n", 1000);
-	ft_printf("%s\n", NULL);
-	ft_printf("%S\n", L"ݗݜशব");
-	ft_printf("%s%s\n", "test", "test");
-	ft_printf("%s%s%s\n", "test", "test", "test");
-	ft_printf("%C\n", 15000);
+//	int *test;
+//	ft_printf("%hhd\n", 500);
+//	printf("%hhd\n", 500);
 
+	printf("%015.8f\n", 0., 0., 0., 0., 0., 0.);
+	ft_printf("%015.8f\n\n", 0., 0., 0., 0., 0., 0.);
+
+	printf("%f|%-f|%+f|% f|%#f|%0f\n", 0., 0., 0., 0., 0., 0.);
+	ft_printf("%f|%-f|%+f|% f|%#f|%0f\n\n", 0., 0., 0., 0., 0., 0.);
+
+	printf("%#.5x\n", 0U);
+	ft_printf("%#.5x\n\n", 0U);
+
+	printf("%#023x\n", 0U);
+	ft_printf("%#023x\n\n", 0U);
+
+	printf("% 1.5d\n", INT_MIN);
+	ft_printf("% 1.5d\n\n", INT_MIN);
+
+	printf("% 1i\n", INT_MIN);
+	ft_printf("% 1i\n\n", INT_MIN);
+
+    printf("%+ 1.5d\n", 0);
+    ft_printf("%+ 1.5d\n\n", 0);
+
+	printf("%1d|%-1d|%+1d|% 1d|%01d\n", 0, 0, 0, 0, 0);
+	ft_printf("%1d|%-1d|%+1d|% 1d|%01d\n\n", 0, 0, 0, 0, 0);
+
+
+	printf("%- 23d|%-023d|%+ 23d|%+023d|% 023d|%-+ 023d\n", 0, 0, 0, 0, 0, 0);
+	ft_printf("%- 23d|%-023d|%+ 23d|%+023d|% 023d|%-+ 023d\n\n", 0, 0, 0, 0, 0, 0);
+
+	printf("% 1.5d|%01.5d\n", 0, 0);
+	ft_printf("% 1.5d|%01.5d\n\n", 0, 0);
+
+	printf("% 1d|%-+ 01d\n", INT_MIN, INT_MIN);
+	ft_printf("% 1d|%-+ 01d\n\n", INT_MIN, INT_MIN);
+
+	printf("% 5f|%#5f|%05f\n", 0., 0., 0.);
+	ft_printf("% 5f|%#5f|%05f\n\n", 0., 0., 0.);
+
+	printf("%+ 23d\n", 0);
+	ft_printf("%+ 23d\n\n", 0);
+
+
+	printf("|%+ 1d|%+01d|% 01d|%-+ 01d\n", 0, 0, 0, 0);
+	ft_printf("|%+ 1d|%+01d|% 01d|%-+ 01d\n\n", 0, 0, 0, 0);
+
+	printf("% 1d\n", INT_MIN);
+	ft_printf("% 1d\n\n", INT_MIN);
+
+	printf("%-+.d|%- .d|%-0.d|%+ .d|%+0.d|% 0.d|%-+ 0.d\n", 0, 0, 0, 0, 0, 0, 0);
+	ft_printf("%-+.d|%- .d|%-0.d|%+ .d|%+0.d|% 0.d|%-+ 0.d\n\n", 0, 0, 0, 0, 0, 0, 0);
+
+//    ft_printf("%f");
+//    printf();
+
+
+// ***************
+
+//    ft_printf("% d\n", 42);
+//    printf("% d\n\n", 42);
+//
+//    ft_printf("%4.15d\n", 42);
+//    printf("%4.15d\n\n", 42);
+//
+//    ft_printf("% 5.7d\n", 42);
+//    printf("% 5.7d\n\n", 42);
+//
+//	ft_printf("%0+5d\n", -42);
+//	printf("%0+5d\n\n", -42);
+//
+//    ft_printf("%010.7d\n", 4242);
+//    printf("%010.7d\n\n", 4242);
+//
+//    ft_printf("%0+5d\n", 42);
+//    printf("%0+5d\n\n", 42);
+//
+//	ft_printf("%+10.5d\n", 4242);
+//	printf("%+10.5d\n\n", 4242);
+//
+//	ft_printf("{% 04d}\n", 0);
+//	printf("{% 04d}\n\n", 0);
+//
+//    ft_printf("%02.2d\n", -1);
+//    printf("%02.2d\n\n", -1);
+//
+//	ft_printf("%#08x\n", 42);
+//	printf("%#08x\n\n", 42);
+//
+//	ft_printf("%010x\n", 542);
+//	printf("%010x\n\n", 542);
 }

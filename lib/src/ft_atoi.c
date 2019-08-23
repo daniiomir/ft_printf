@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int		is_space(char a)
+static int			is_space(char a)
 {
 	if (a == '\v' || a == '\n' || a == '\t' || a == '\a'
 		|| a == '\b' || a == '\f' || a == '\r' || a == ' ')
@@ -20,7 +20,7 @@ static int		is_space(char a)
 	return (0);
 }
 
-static int		leak_check(size_t count,
+static ssize_t		leak_check(size_t count,
 	long long int sign, long long int answer)
 {
 	if (count >= 19)
@@ -28,7 +28,7 @@ static int		leak_check(size_t count,
 	return (sign * answer);
 }
 
-int				ft_atoi(const char *str)
+ssize_t				ft_atoi(const char *str)
 {
 	long long int		answer;
 	long long int		sign;

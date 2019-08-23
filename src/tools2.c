@@ -12,6 +12,16 @@
 
 #include "ft_printf.h"
 
+double	ft_calc_modul(long double nb, size_t *size)
+{
+	long double	modul;
+
+	modul = 1;
+	while ((size_t)(nb /= 10) != 0 && (*size)++)
+		modul *= 10;
+	return (modul);
+}
+
 void	ft_clean_info(t_arginfo *info)
 {
 	size_t	i;

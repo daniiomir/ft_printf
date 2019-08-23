@@ -49,7 +49,8 @@ static char	*get_x_with_flags(va_list *args, t_arginfo *info, char *string)
 		string = get_x(args, info, 16);
 		if (string[0] != '0')
 		{
-			if (info->flag[3] == '0' && info->flag[1] != '-')
+			if (info->flag[3] == '0' && info->flag[1] != '-'
+				&& !info->is_precision)
 				string = handle_octotorp(handle_zero(
 					string, info, info->width), info);
 			else if (info->precision > 0)

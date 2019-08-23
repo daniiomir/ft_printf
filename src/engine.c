@@ -44,15 +44,17 @@ static size_t	percent_handling(const char *format, t_arginfo *info,
 	return (j);
 }
 
-static char		*next_part_string(const char *format, size_t i, size_t j)
+static char		*next_part_string(const char *format, size_t i,
+	size_t j, t_arginfo *info)
 {
 	char	*tmp;
 
 	if (format[i + j] == '%')
 		tmp = ft_strsub(format, i + 1, j - 1);
-	else if (ft_isalnum(format[i + j]) &&
+	else if ((ft_isalnum(format[i + j]) &&
 		!ft_search_helper("SsCciduUoxXpf%", format[i + j])
-		&& format[i + j + 1] != '%')
+		&& format[i + j + 1] != '%') || (ft_isalnum(format[i + j])
+		&& info->type != 'd' && format[i + j + 1] != '%'))
 		tmp = ft_strsub(format, i + 1, j + 2);
 	else
 		tmp = ft_strsub(format, i + 1, j);
@@ -92,11 +94,11 @@ char			*ft_engine(const char *format, va_list *args,
 		}
 		j = percent_handling(format, &info, *i, j);
 		if (*len_for_null)
-			string = ft_strjoin_null(string, next_part_string(format, *i, j),
-			len_for_null);
+			string = ft_strjoin_null(string,
+			next_part_string(format, *i, j, &info), len_for_null);
 		else
 			string = ft_strjoin_free_all(string,
-				next_part_string(format, *i, j));
+				next_part_string(format, *i, j, &info));
 		*i = ft_next_ending(format, *i);
 	}
 	return (string);
