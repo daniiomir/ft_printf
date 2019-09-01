@@ -18,7 +18,7 @@ static void		ft_handle_integer(long double *nb,
 	char	*s;
 
 	s = *str;
-	if (!*nb)
+	if (!*nb || (size_t)*nb == 0)
 		s[(*i)++] = '0';
 	else
 	{
